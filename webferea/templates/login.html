@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block body %}
+    <section class="login_page">
+        <h2>Login</h2>
+        {% if error %}<p class="error"><strong>Error:</strong> {{ error }}{% endif %}
+        <form id="login" action="{{ url_for('auth.login') }}" method="post">
+
+            <label for="username">Username:</label>
+            <input type="text" name="username"/>
+            <label for="password">Password:</label>
+            <input type="password" name="password"/>
+
+            <input type="submit" value="Login" />
+
+        </form>
+    </section>
+{% endblock %}

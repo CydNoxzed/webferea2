@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+
+
+{% block nav %}
+
+
+    <div class="center">
+        <form class="button" method="post" action="/page/{{ session.page }}/">
+            <button type="submit">✖</button>
+        </form>
+    </div>
+
+    {% include 'actions.html' %}
+
+{% endblock %}
+
+
+
+{% block main %}
+    <div class="item">
+    
+        <div id="item_content">
+            <h2><a href="{{ entry.source }}">{{ entry.title }}</a></h2>
+
+            <div class="date">{{ entry.date|datetime }} - {{ entry.node_title }}</div>
+
+            {{ entry.description|safe }}
+        </div>
+
+    </div>
+{% endblock %}
+
+
+
+
+
+

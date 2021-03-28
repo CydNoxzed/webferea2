@@ -1,0 +1,47 @@
+{% extends "main.html" %}
+
+{% block nav_center %}
+
+    <form class="button" method="post" action="{{pagination.prev_link}}">
+        <button {% if not pagination.has_prev %}disabled{% endif %} type="submit">&laquo;
+        </button>
+    </form>
+
+    <form class="button" method="post" action="/page/{{ pagination.page }}/">
+        <button type="submit">{{ pagination.page }}</button>
+    </form>
+
+    <form class="button" method="post" action="{{pagination.next_link}}">
+        <button {% if not pagination.has_next %}disabled{% endif %} type="submit">&raquo;
+        </button>
+    </form>
+
+{% endblock %}
+
+
+{% block main %}
+
+    {# {% for item in iterable|sort(attribute='date') %} #}
+    {% for entry in entries %}
+        {% if not entry.text %}
+            <section class="item {% if entry.read == 1 %}read{% endif %} {% if entry.marked == 1 %}marked{% endif %}">
+                <div class="text" onclick="location.href='/item/{{ entry.item_id }}/';" style="cursor: pointer;">
+                    <div class="item_title"><a href="/item/{{ entry.item_id }}/">{{ entry.title }}</a></div>
+                    <div class="wordcount">{{ ((entry.description|wordcount / wpm )|round(0,"ceil"))|int }} Minutes - {{
+                        entry.node_title }}
+                    </div>
+                </div>
+
+                {% include 'actions.html' %}
+
+            </section>
+        {% else %}
+            <section class="separator">
+                <div class="text">{{ entry.text }}</div>
+            </section>
+        {% endif %}
+    {% else %}
+        <section><em>No entries found...</em></section>
+    {% endfor %}
+
+{% endblock %}

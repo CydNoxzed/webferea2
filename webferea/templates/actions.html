@@ -1,0 +1,72 @@
+
+<div class="right">
+<label class="switch button" for="menu_{{ entry.item_id }}">!</label>
+</div>
+<input class="menu_switch item" type="checkbox" id="menu_{{ entry.item_id }}">
+
+<div class="buttonbox item bottom">
+
+    {% if entry.read == 1 %}
+        <form method="post">
+            <input type="hidden" name="item_id" value="{{ entry.item_id }}"/>
+            <input type="hidden" name="action" value="unread"/>
+            <button type="submit">unread</button>
+        </form>
+    {% else %}
+        <form method="post">
+            <input type="hidden" name="item_id" value="{{ entry.item_id }}"/>
+            <input type="hidden" name="action" value="read"/>
+            <button type="submit">read</button>
+        </form>
+    {% endif %}
+
+
+    {# pagination is only setted on the feed #}
+    {% if not pagination %}
+        {% if entry.read == 1 %}
+            <form method="post" action="/page/{{ session.page }}/">
+                <input type="hidden" name="item_id" value="{{ entry.item_id }}"/>
+                <input type="hidden" name="action" value="unread"/>
+                <button type="submit">unread&close</button>
+            </form>
+        {% else %}
+            <form method="post" action="/page/{{ session.page }}/">
+                <input type="hidden" name="item_id" value="{{ entry.item_id }}"/>
+                <input type="hidden" name="action" value="read"/>
+                <button type="submit">read&close</button>
+            </form>
+        {% endif %}
+    {% endif %}
+
+
+    {% if entry.marked == 1 %}
+        <form method="post">
+            <input type="hidden" name="item_id" value="{{ entry.item_id }}"/>
+            <input type="hidden" name="action" value="unmark"/>
+            <button type="submit">unmark</button>
+        </form>
+    {% else %}
+        <form method="post">
+            <input type="hidden" name="item_id" value="{{ entry.item_id }}"/>
+            <input type="hidden" name="action" value="mark"/>
+            <button type="submit">mark</button>
+        </form>
+    {% endif %}
+
+    {# pagination is only setted on the feed #}
+    {% if not pagination %}
+        <form method="post" action="/page/{{ session.page }}/">
+            <input type="hidden" name="item_id" value="{{ entry.item_id }}"/>
+            {% if entry.marked == 1 %}
+                <input type="hidden" name="action" value="unmark"/>
+                <button type="submit">unmark&close</button>
+            {% else %}
+                <input type="hidden" name="action" value="mark"/>
+                <button type="submit">mark&close</button>
+            {% endif %}
+        </form>
+    {% endif %}
+
+
+
+</div>

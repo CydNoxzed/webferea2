@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block body %}
+    <header>
+        <nav>
+
+            <div class="left">
+                <label class="button" for="menu_main">&#9776;</label>
+
+                {% block nav_left %}{% endblock %}
+
+            </div>
+            <input class="menu_switch main" type="checkbox" id="menu_main">
+
+            <div class="center">
+                {% block nav_center %}{% endblock %}
+            </div>
+
+            <div class="right">
+                {% block nav_right %}{% endblock %}
+            </div>
+
+            {% block nav %}{% endblock %}
+
+            <div class="buttonbox main bottom">
+
+                <form method="post" action="/">
+                    <button type="submit">Home</button>
+                </form>
+
+                {% if not session.show_read %}
+                    <form method="post">
+                        <input type="hidden" name="action" value="show_read"/>
+                        <button type="submit">ShowRead</button>
+                    </form>
+                {% else %}
+                    <form method="post">
+                        <input type="hidden" name="action" value="hide_read"/>
+                        <button type="submit">HideRead</button>
+                    </form>
+                {% endif %}
+
+                <form method="post" action="{{ url_for('auth.logout') }}">
+                    <button type="submit">Log out</button>
+                </form>
+
+            </div>
+
+        </nav>
+    </header>
+
+    <aside>
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+        {% endfor %}
+    </aside>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+        {% if infobar %}
+        {{ infobar }}
+        {% endif %}
+    </footer>
+
+{% endblock %}
