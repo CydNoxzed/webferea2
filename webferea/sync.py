@@ -1,9 +1,4 @@
-import functools
-import base64
-import datetime
 import os
-from flask import Flask, flash, request, redirect, url_for
-from werkzeug.utils import secure_filename
 from flask import Blueprint
 from flask import request
 from flask import current_app
@@ -18,7 +13,7 @@ bp = Blueprint("sync", __name__)
 
 
 # @login_required
-@bp.route('/sync/test/', methods=['POST'])
+@bp.route('/sync/upload/', methods=['POST'])
 def test():
     # to the basic auth stuff
     check_for_basic_auth()
@@ -37,7 +32,7 @@ def test():
     return 'OK', 200
 
 
-@bp.route('/sync/download/', methods=['POST'])
+@bp.route('/sync/download/', methods=['GET'])
 def download():
     # to the basic auth stuff
     check_for_basic_auth()
