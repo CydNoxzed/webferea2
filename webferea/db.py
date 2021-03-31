@@ -147,3 +147,32 @@ def set_item_flags(item_id, action):
     db.execute(query)
     db.commit()
     return True
+
+
+def get_statistics(node_titles):
+    """ Returns the numbers of all items and all read items
+    :param node_titles:
+    :return:
+    """
+    db = get_db()
+    counts = []
+    for i in ["OR (webferea <> '')", ""]:
+        query = f"""
+            SELECT count(node.title) AS count
+            FROM items 
+            JOIN node ON node.node_id = items.node_id
+            WHERE 
+                node.title IN ('{"', '".join(node_titles)}')
+                AND items.comment = 0 
+                AND (
+                    (items.read = 0 AND items.marked = 0) 
+                    {i} 
+                )
+            ORDER BY items.date DESC
+        """
+        cur = db.execute(query)
+        entries = cur.fetchall()
+        counts.append(entries[0]["count"])
+
+    return counts
+

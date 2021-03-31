@@ -1,5 +1,7 @@
 
 /**
+ * water-dark.css: https://watercss.kognise.dev/
+ *
  * Dark-themed version:
  * uses dark theme by default but switches to light theme
  * if a system-wide theme preference is set on the user's device.
@@ -9,34 +11,6 @@
  */
 
 :root {
-/*
-  --background-body: #202b38;
-  --background: #161f27;
-  --background-alt: #1a242f;
-
-  --selection: #161f27;
-
-  --text-main: #dbdbdb;
-  --text-bright: #ffffff;
-  --text-muted: #717880;
-
-  --links: #41adff;
-  --focus: #0096bfab;
-  --border: #dbdbdb;
-  --code: #ffbe85;
-
-  --animation-duration: 0.1s;
-  --button-hover: #324759;
-
-  --scrollbar-thumb: var(--button-hover);
-  --scrollbar-thumb-hover: rgb(65, 92, 115);
-
-  --form-placeholder: #a9a9a9;
-  --form-text: #ffffff;
-
-  --variable: #d941e2;
-  --highlight: #efdb43;
-*/
   --background-body: #000;
   --background: #282828;
   --background-alt: #282828;
@@ -603,15 +577,10 @@ summary::-webkit-details-marker {
 }
 
 footer {
-  border-top: 1px solid var(--background);
   padding-top: 10px;
   font-size: 0.8em;
   color: var(--text-muted);
 }
-
-
-
-
 
 
 
@@ -621,13 +590,28 @@ footer {
  */
 
 
-
-
 :root {
   --gap: 0.5em;
   --element-padding: 0.25em;
   --radius: 6px;
 }
+
+header {
+    position: sticky;
+    top: 0;
+    background-color: var(--background-body);
+    box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.71);
+}
+
+footer {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--background-body);
+    text-align: right;
+    box-shadow: 0px -10px 10px 0px rgba(0,0,0,0.71);
+}
+
+
 
 /*
  * Nav

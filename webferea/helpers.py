@@ -19,29 +19,32 @@ def handle_actions_before(view):
 
     @functools.wraps(view)
     def wrapped_view(**kwargs):
-        handle_actions()
+        kwargs = handle_actions(**kwargs)
         return view(**kwargs)
 
     return wrapped_view
 
 
-def handle_actions():
+def handle_actions(**kwargs):
     """ Perform the actions on the item view to the given item_id
-    :return:
+    :return: kwargs
     """
 
     msg = ''
     action = request.form.get('action')
     item_id = request.form.get('item_id')
     if not action:
-        return
+        return kwargs
 
+    # Set the page to 1 if the show_read session was changed
     if action == "show_read" and not item_id:
         session["show_read"] = True
         msg = "Show read items"
+        kwargs['page'] = 1
     if action == "hide_read" and not item_id:
         session["show_read"] = False
         msg = "Hide read items"
+        kwargs['page'] = 1
 
     if item_id:
         if action == "read":
@@ -59,6 +62,8 @@ def handle_actions():
 
     if msg and len(msg) > 0:
         flash(msg)
+
+    return kwargs
 
 
 def check_for_basic_auth():

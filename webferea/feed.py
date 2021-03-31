@@ -14,6 +14,7 @@ from . import db
 from .helpers import handle_actions_before
 from .helpers import login_required
 from .helpers import format_datetime
+from .helpers import get_last_sync
 
 bp = Blueprint("feed", __name__)
 
@@ -27,16 +28,13 @@ def show_feed(page=1):
     :param page:
     """
 
-    # Set the page to 1 if the show_read session was changed
-    # resetPage = doListActions()
-    # page = 1 if resetPage else page
-
     node_filter = current_app.config['NODES']
     items_per_page = current_app.config['ITEMS_PER_PAGE']
 
-    # statistics = getStatistics(node_filter)
-    # get_last_sync()
-    # infobar = getStatisticString( statistics )
+    # footer bar
+    statistics = db.get_statistics(node_filter)
+    last_sync = get_last_sync()
+    infobar = f'{statistics[1]} / {statistics[0]} unread items | last sync: {last_sync}'
 
     # pagination
     entries = db.get_items_by_node_titles(node_filter)
@@ -52,7 +50,7 @@ def show_feed(page=1):
 
     words_per_minute = current_app.config['WORDS_PER_MINUTE']
 
-    return render_template('feed.html', entries=entries, pagination=p, infobar={}, wpm=words_per_minute)
+    return render_template('feed.html', entries=entries, pagination=p, infobar=infobar, wpm=words_per_minute)
 
 
 def items_from_pagination(items, page, items_per_page):
