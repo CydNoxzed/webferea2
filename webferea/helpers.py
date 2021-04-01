@@ -12,6 +12,7 @@ from flask import redirect
 from flask import request
 from flask import flash
 from flask import abort
+import jinja2
 
 from . import db
 
@@ -49,18 +50,21 @@ def handle_actions(**kwargs):
         kwargs['page'] = 1
 
     if item_id:
+        item = db.get_item_by_id(item_id)
+        title = jinja2.filters.do_truncate(None, item['title'], 45, False, '...', 0)
         if action == "read":
             ret = db.set_item_flags(item_id, action)
-            msg = "Set read flag" if ret else "Cant set read flag"
+            msg = f"Read: <em>{title}</em>" if ret else "Cant set read flag"
         elif action == "unread":
             ret = db.set_item_flags(item_id, action)
-            msg = "Unset read flag" if ret else "Cant unset read flag"
+
+            msg = f"Unread: <em>{title}</em>" if ret else "Cant unset read flag"
         elif action == "mark":
             ret = db.set_item_flags(item_id, action)
-            msg = "Set marked flag" if ret else "Cant set marked flag"
+            msg = f"Marked: <em>{title}</em>" if ret else "Cant set marked flag"
         elif action == "unmark":
             ret = db.set_item_flags(item_id, action)
-            msg = "Unset marked flag" if ret else "Cant unset marked flag"
+            msg = f"Unmarked: <em>{title}</em>" if ret else "Cant unset marked flag"
 
     if msg and len(msg) > 0:
         flash(msg)

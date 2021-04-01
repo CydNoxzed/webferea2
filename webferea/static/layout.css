@@ -210,13 +210,13 @@ select {
   margin-right: 6px;
   margin-bottom: 6px;
   padding: 10px;
-*/
   padding: 0.5em;
-
+*/
   border: none;
   border-radius: 6px;
   outline: none;
 
+    height: 100%;
     text-align: center;
 }
 
@@ -225,6 +225,7 @@ select,
 button,
 textarea {
   -webkit-appearance: none;
+  width: 100%;
 }
 
 textarea {
@@ -592,8 +593,9 @@ footer {
 
 :root {
   --gap: 0.5em;
-  --element-padding: 0.25em;
+  --element-padding: 0.5em;
   --radius: 6px;
+  --btn-size: 3em;
 }
 
 body > header {
@@ -606,6 +608,7 @@ body > header {
 body > footer {
     position: sticky;
     bottom: 0;
+    margin-top: 1em;
     background-color: var(--background-body);
     text-align: right;
     box-shadow: 0px -10px 10px 0px rgba(0,0,0,0.71);
@@ -623,7 +626,7 @@ nav {
         "left center right"
         "bottom bottom bottom";
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 3em 1fr;
+    grid-template-rows: var(--btn-size) 1fr;
     gap: var(--gap);
 }
 
@@ -654,11 +657,10 @@ nav > .right {
 
 .button {
     align-self: stretch;
-    min-width: 2em;
-
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: var(--btn-size);
 }
 
 
@@ -682,7 +684,6 @@ input.menu_switch {
 
 .buttonbox {
     display: none;
-    margin-bottom: calc(var(--gap) * 2);
     gap: var(--gap);
 }
 
@@ -693,6 +694,8 @@ input.menu_switch {
 input[type=checkbox]:checked.main ~ .buttonbox.main,
 input[type=checkbox]:checked.item ~ .buttonbox.item {
     display: flex;
+    height: var(--btn-size);
+    padding-bottom: calc(var(--gap) * 2);
 }
 
 .buttonbox > form {
@@ -742,7 +745,7 @@ section.item {
     grid-template-areas:
         "text button"
         "buttons buttons";
-    grid-template-columns: 1fr 3em;
+    grid-template-columns: 1fr var(--btn-size);
     grid-template-rows: 4em 1fr;
     gap: var(--gap);
 }
@@ -801,5 +804,11 @@ section > .buttonbox {
     margin-top: 1em;
 }
 
+/*
+ * Various
+ */
 
+.hauptseite-box-content {
+    width: 100%!important; /* fix the wikipedia article of the day 50% hardcoded behaviour */
+}
 
