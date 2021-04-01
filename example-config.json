@@ -1,0 +1,9 @@
+{
+  "USERNAME": "username",
+  "PASSWORD": "password",
+
+  "NODES": [
+      "Archlinux",
+      "Its FOSS"
+  ]
+}

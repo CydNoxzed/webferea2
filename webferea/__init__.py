@@ -13,7 +13,7 @@ def create_app(test_config=None):
         "SHOW_READ_ENTITIES_PER_DEFAULT": False,
         "ITEMS_PER_PAGE": 10,
         "HOST": "0.0.0.0",
-        "PORT": 5000,
+        "PORT": 8000,
         "WORDS_PER_MINUTE": 240,
         "NODES": ()
     }
