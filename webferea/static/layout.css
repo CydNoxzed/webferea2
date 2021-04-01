@@ -596,14 +596,14 @@ footer {
   --radius: 6px;
 }
 
-header {
+body > header {
     position: sticky;
     top: 0;
     background-color: var(--background-body);
     box-shadow: 0px 10px 10px 0px rgba(0,0,0,0.71);
 }
 
-footer {
+body > footer {
     position: sticky;
     bottom: 0;
     background-color: var(--background-body);
