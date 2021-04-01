@@ -3,6 +3,7 @@ import datetime
 import os
 import base64
 import re
+from urllib.parse import urlsplit, urlunsplit, SplitResult
 from pprint import pprint
 
 from flask import current_app
@@ -118,6 +119,14 @@ def format_iframes(content) -> str:
     return content
 
 
+def format_internal_links(content, link_prefix="/") -> str:
+    regex = r"(<img[^=>]*src=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)"
+    matches = re.findall(regex, content, re.MULTILINE)
+    for link, url in matches:
+        content = content.replace(f'/{url}', f'{link_prefix}{url}')
+    return content
+
+
 def is_sqlite3_stream(stream) -> bool:
     """ Check if the sqlite3file is valid
     credits to: http://stackoverflow.com/questions/12932607/
@@ -147,3 +156,9 @@ def get_last_sync():
     with open(filepath, 'r') as file:
         data = file.read().replace('\n', '')
     return data
+
+
+def get_base_url(url):
+    split_url_dict = dict(urlsplit(url)._asdict())
+    split_url_dict['path'] = '/'
+    return urlunsplit(SplitResult(**split_url_dict))

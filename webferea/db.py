@@ -34,7 +34,8 @@ def get_db():
             db_file,
             detect_types=sqlite3.PARSE_DECLTYPES
         )
-        g.db.row_factory = sqlite3.Row
+        #g.db.row_factory = sqlite3.Row
+        g.db.row_factory = dict_factory
         init_db(g.db)
 
     return g.db
@@ -45,6 +46,13 @@ def close_db(e=None):
 
     if db is not None:
         db.close()
+
+
+def dict_factory(cursor, row):
+    d = {}
+    for idx, col in enumerate(cursor.description):
+        d[col[0]] = row[idx]
+    return d
 
 
 def get_items_by_node_titles(node_titles):
@@ -80,14 +88,14 @@ def get_items_by_node_titles(node_titles):
     return entries
 
 
-def get_item_by_id(id):
+def get_item_by_id(item_id):
     """ Get the single item from the database with the given id.
-    :param id:
+    :param item_id:
     :return:
     """
     db = get_db()
     params = {
-        "id": id,
+        "id": item_id,
     }
     cur = db.execute('''
         SELECT 
@@ -99,7 +107,9 @@ def get_item_by_id(id):
         WHERE item_id = :id
         ''', params)
     entries = cur.fetchall()
-    return entries[0]
+    if len(entries) > 0:
+        return entries[0]
+    return []
 
 
 def set_item_flags(item_id, action):
