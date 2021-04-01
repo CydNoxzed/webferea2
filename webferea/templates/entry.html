@@ -5,9 +5,9 @@
 
 
     <div class="center">
-        <form class="button" method="post" action="/page/{{ session.page }}/">
-            <button type="submit">✖</button>
-        </form>
+        <span class="button">
+            <a href="/page/{{ session.page }}/">✖</a>
+        </span>
     </div>
 
     {% include 'actions.html' %}
