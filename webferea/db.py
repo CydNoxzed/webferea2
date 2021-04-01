@@ -7,9 +7,11 @@ from flask.cli import with_appcontext
 from flask import session
 
 
-def init_db():
-    db = get_db()
+def init_app(app):
+    app.teardown_appcontext(close_db)
 
+
+def init_db(db):
     # Add the column 'webferea' to the table items
     query = """PRAGMA table_info(items)"""
     cur = db.execute(query)
@@ -25,19 +27,6 @@ def init_db():
         db.commit()
 
 
-@click.command('init-db')
-@with_appcontext
-def init_db_command():
-    """Clear the existing data and create new tables."""
-    init_db()
-    click.echo('Initialized the database.')
-
-
-def init_app(app):
-    app.teardown_appcontext(close_db)
-    app.cli.add_command(init_db_command)
-
-
 def get_db():
     if 'db' not in g:
         db_file = os.path.join(current_app.instance_path, current_app.config['DATABASE'])
@@ -46,6 +35,7 @@ def get_db():
             detect_types=sqlite3.PARSE_DECLTYPES
         )
         g.db.row_factory = sqlite3.Row
+        init_db(g.db)
 
     return g.db
 
@@ -175,4 +165,3 @@ def get_statistics(node_titles):
         counts.append(entries[0]["count"])
 
     return counts
-
