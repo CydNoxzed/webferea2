@@ -654,7 +654,7 @@ nav > .right {
 
 .button {
     align-self: stretch;
-    width: 2em;
+    min-width: 2em;
 
     display: flex;
     justify-content: center;
@@ -742,7 +742,7 @@ section.item {
     grid-template-areas:
         "text button"
         "buttons buttons";
-    grid-template-columns: 1fr 2em;
+    grid-template-columns: 1fr 3em;
     grid-template-rows: 4em 1fr;
     gap: var(--gap);
 }

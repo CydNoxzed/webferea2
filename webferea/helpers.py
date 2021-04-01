@@ -2,6 +2,8 @@ import functools
 import datetime
 import os
 import base64
+import re
+from pprint import pprint
 
 from flask import current_app
 from flask import session
@@ -101,6 +103,15 @@ def format_datetime(timestamp) -> str:
     """
     format = '%Y-%m-%d %H:%M:%S'
     return datetime.datetime.fromtimestamp(timestamp).strftime(format)
+
+
+def format_iframes(content) -> str:
+    regex = r"(<iframe[^=>]*src=[\'\"]([^\"\'>]*)[\'\"][^>]*>)"
+    matches = re.findall(regex, content, re.MULTILINE)
+    for iframe, url in matches:
+        replace = f'[IFRAME] <a href="{url}">{url}</a> [/IFRAME]'
+        content = content.replace(iframe, replace)
+    return content
 
 
 def is_sqlite3_stream(stream) -> bool:

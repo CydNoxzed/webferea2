@@ -38,7 +38,7 @@ def create_app(test_config=None):
     from . import feed
     from . import entry
     from . import sync
-    from .helpers import format_datetime
+    from .helpers import format_datetime, format_iframes
 
     db.init_app(app)
     app.register_blueprint(auth.bp)
@@ -47,5 +47,6 @@ def create_app(test_config=None):
     app.register_blueprint(sync.bp)
 
     app.jinja_env.filters['datetime'] = format_datetime
+    app.jinja_env.filters['iframes'] = format_iframes
 
     return app
