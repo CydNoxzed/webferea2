@@ -127,6 +127,15 @@ def format_internal_links(content, link_prefix="/") -> str:
     return content
 
 
+def filter_external_scripts(content, link_prefix="/") -> str:
+    regex = r"(<script[^=>]*src=[\'\"]([^\"\'>]*)[\'\"][^>]*>)"
+    matches = re.findall(regex, content, re.MULTILINE)
+    for tag, url in matches:
+        if not url.startswith("/") or link_prefix not in url:
+            content = content.replace(tag, '')
+    return content
+
+
 def is_sqlite3_stream(stream) -> bool:
     """ Check if the sqlite3file is valid
     credits to: http://stackoverflow.com/questions/12932607/
@@ -166,4 +175,6 @@ def get_last_sync():
 def get_base_url(url):
     split_url_dict = dict(urlsplit(url)._asdict())
     split_url_dict['path'] = '/'
+    split_url_dict['query'] = ''
+    split_url_dict['fragment'] = ''
     return urlunsplit(SplitResult(**split_url_dict))

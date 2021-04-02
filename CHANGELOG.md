@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- entry: filter out <script> tags with src outside the posts domain
+- db: catch error, if database is not synced yet
+- auth: check if the username and password values in the config are not empty
+- helpers: don't crash if last_updated file was not found
 - client: add --verbose parameter to enable debug outputs
 - theme: remove padding in flash message
 

@@ -36,11 +36,6 @@ def show_item(item_id):
     link_prefix = helpers.get_base_url(entry["source"])
     entry['description'] = helpers.format_iframes(entry['description'])
     entry['description'] = helpers.format_internal_links(entry['description'], link_prefix)
+    entry['description'] = helpers.filter_external_scripts(entry['description'], link_prefix)
 
     return render_template('entry.html', entry=entry)
-
-
-
-
-
-
