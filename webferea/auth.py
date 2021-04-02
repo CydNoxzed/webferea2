@@ -8,6 +8,7 @@ from flask import request
 from flask import session
 from flask import url_for
 from flask import current_app
+from flask import abort
 
 bp = Blueprint("auth", __name__)
 
@@ -19,6 +20,9 @@ def login():
     """
     error = None
     if request.method == 'POST':
+        if current_app.config['USERNAME'].strip() == '' or current_app.config['PASSWORD'].strip() == '':
+            abort(500, "No valid credentials in configuration found.")
+
         if request.form.get('username') != current_app.config['USERNAME']:
             error = 'Invalid username'
         elif request.form.get('password') != current_app.config['PASSWORD']:
