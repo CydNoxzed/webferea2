@@ -800,7 +800,6 @@ section > .buttonbox {
     background-color: var(--links);
     color: var(--background-alt);
     margin-top: 1em;
-    padding: var(--element-padding);
     text-align: center;
     font-weight: bold;
     border-radius: var(--radius);
