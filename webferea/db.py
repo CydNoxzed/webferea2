@@ -5,6 +5,7 @@ import click
 from flask import current_app, g
 from flask.cli import with_appcontext
 from flask import session
+from flask import abort
 
 
 def init_app(app):
@@ -29,14 +30,17 @@ def init_db(db):
 
 def get_db():
     if 'db' not in g:
-        db_file = os.path.join(current_app.instance_path, current_app.config['DATABASE'])
-        g.db = sqlite3.connect(
-            db_file,
-            detect_types=sqlite3.PARSE_DECLTYPES
-        )
-        #g.db.row_factory = sqlite3.Row
-        g.db.row_factory = dict_factory
-        init_db(g.db)
+        try:
+            db_file = os.path.join(current_app.instance_path, current_app.config['DATABASE'])
+            g.db = sqlite3.connect(
+                db_file,
+                detect_types=sqlite3.PARSE_DECLTYPES
+            )
+            #g.db.row_factory = sqlite3.Row
+            g.db.row_factory = dict_factory
+            init_db(g.db)
+        except:
+            abort(500, "No database found, please sync first.")
 
     return g.db
 
