@@ -144,18 +144,23 @@ def set_last_sync():
     """ Sets the information of the latest database update to the flat file
     :return:
     """
-
-    filepath = os.path.join(current_app.instance_path, 'last_updated')
-    with open(filepath, "w") as text_file:
-        text_file.write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    try:
+        filepath = os.path.join(current_app.instance_path, 'last_updated')
+        with open(filepath, "w") as text_file:
+            text_file.write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    except:
+        pass
 
 
 def get_last_sync():
-    filepath = os.path.join(current_app.instance_path, 'last_updated')
-    data = ''
-    with open(filepath, 'r') as file:
-        data = file.read().replace('\n', '')
-    return data
+    try:
+        filepath = os.path.join(current_app.instance_path, 'last_updated')
+        data = ''
+        with open(filepath, 'r') as file:
+            data = file.read().replace('\n', '')
+        return data
+    except:
+        return "0000-00-00"
 
 
 def get_base_url(url):
