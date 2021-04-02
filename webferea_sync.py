@@ -51,6 +51,8 @@ class WebfereaSync:
         webitems = self.get_all_changed_webitems(self.temp_database)
         if webitems:
             self.update_local_items(self.local_database, webitems)
+        else:
+            logging.debug("merge: no items to sync found")
 
     def upload(self):
         if not self.is_sqlite3_file(self.local_database):
@@ -86,6 +88,8 @@ class WebfereaSync:
             return False
 
     def update_local_items(self, local_db, webitems):
+
+        logging.debug(f"update_local_items: local_db [{local_db}]")
 
         connection = sqlite3.connect(local_db)
         connection.row_factory = self.dict_factory
@@ -193,16 +197,27 @@ class WebfereaSync:
             action=argparse.BooleanOptionalAction,
             default=False
         )
+        parser.add_argument(
+            '-v', '--verbose',
+            dest="verbose",
+            help="Show debug outputs",
+            action=argparse.BooleanOptionalAction,
+            default=False
+        )
         args = parser.parse_args()
 
         self.target = args.target
         self.username = args.user
         self.password = args.password
-        self.local_database = args.sqlite
-        self.temp_database = args.tempfilepath
+        self.local_database = os.path.expanduser(args.sqlite)
+        self.temp_database = os.path.expanduser(args.tempfilepath)
         self.scheme = args.scheme
 
-        level = logging.ERROR if args.quiet else logging.INFO
+        level = logging.INFO
+        if args.quiet:
+            level = logging.ERROR
+        if args.verbose:
+            level = logging.DEBUG
         logging.basicConfig(level=level)
 
 
