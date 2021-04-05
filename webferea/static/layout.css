@@ -809,6 +809,11 @@ section > .buttonbox {
  * Auth
  */
 
+.login_page input {
+  height: 2em;
+}
+
+
 .login_page input[type=submit] {
     margin-top: 1em;
 }
