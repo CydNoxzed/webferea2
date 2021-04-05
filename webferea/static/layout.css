@@ -739,7 +739,7 @@ section > .text {
     letter-spacing: -0.04em;
 }
 section.separator > .text {
-    padding: calc(var(--element-padding) / 2);
+    padding: 0;
 }
 
 section.item {
@@ -799,7 +799,8 @@ section > .buttonbox {
 .flash {
     background-color: var(--links);
     color: var(--background-alt);
-    margin-top: 1em;
+    margin-top: calc(var(--gap) * 1.5);
+    margin-bottom: var(--gap);
     text-align: center;
     font-weight: bold;
     border-radius: var(--radius);
