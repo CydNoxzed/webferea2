@@ -120,10 +120,14 @@ def format_iframes(content) -> str:
 
 
 def format_internal_links(content, link_prefix="/") -> str:
-    regex = r"(<img[^=>]*src=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)"
-    matches = re.findall(regex, content, re.MULTILINE)
-    for link, url in matches:
-        content = content.replace(f'/{url}', f'{link_prefix}{url}')
+    regex = [
+        r"(<img[^=>]*src=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)",
+        r"(<a[^=>]*href=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)"
+    ]
+    for reg in regex:
+        matches = re.findall(reg, content, re.MULTILINE)
+        for link, url in matches:
+            content = content.replace(f'/{url}', f'{link_prefix}{url}')
     return content
 
 

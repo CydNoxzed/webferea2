@@ -6,17 +6,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- entry: filter out <script> tags with src outside the posts domain
+### Features
+
+- entry: filter out script-tags with src outside the posts domain
+- client: add --verbose parameter to enable debug outputs
+- theme: remove padding in flash message
+- theme: make the items on the list a bit more compact
+
+
+### Fixes
+
 - db: catch error, if database is not synced yet
 - auth: check if the username and password values in the config are not empty
 - helpers: don't crash if last_updated file was not found
-- client: add --verbose parameter to enable debug outputs
-- theme: remove padding in flash message
+- entry: change relative urls to absolute urls too
+
 
 ## [2.1.0] - 2021-04-01
 
 - filter iframes out of the items, because they cause trouble
-- change relative urls in posts to absolute posts
+- change relative urls in posts to absolute urls
 - change action buttons from post to get (where possible)
 - make header and footer sticky
 - add status in footer

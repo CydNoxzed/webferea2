@@ -250,15 +250,6 @@ select[multiple] {
   overflow-y: auto;
 }
 
-/*
-button,
-input[type='submit'],
-input[type='button'] {
-  padding-right: 30px;
-  padding-left: 30px;
-}
-*/
-
 button:hover,
 input[type='submit']:hover,
 input[type='button']:hover {
@@ -745,6 +736,7 @@ section > .text {
     border-radius: var(--radius);
     white-space: nowrap;
     overflow-x: hidden;
+    letter-spacing: -0.04em;
 }
 section.separator > .text {
     padding: calc(var(--element-padding) / 2);
@@ -756,7 +748,7 @@ section.item {
         "text button"
         "buttons buttons";
     grid-template-columns: 1fr var(--btn-size);
-    grid-template-rows: 4em 1fr;
+    grid-template-rows: auto 1fr;
     gap: var(--gap);
 }
 
@@ -791,6 +783,14 @@ section > .buttonbox {
     justify-self: flex-start;
     align-items: start;
 }
+
+/*
+ * Entry
+ */
+.item .date {
+    margin-bottom: 1em;
+}
+
 
 /*
  * Flash
