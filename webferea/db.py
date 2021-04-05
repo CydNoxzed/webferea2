@@ -116,6 +116,22 @@ def get_item_by_id(item_id):
     return []
 
 
+def get_metadata_by_item_id(item_id: int):
+    metadata = {}
+    db = get_db()
+    cur = db.execute(f'''
+        SELECT *
+        FROM metadata 
+        WHERE item_id = {item_id}
+        ORDER BY nr ASC
+        ''')
+    result = cur.fetchall()
+    if len(result) > 0:
+        for row in result:
+            metadata[row["key"]] = row["value"]
+    return metadata
+
+
 def set_item_flags(item_id, action):
     """ Sets the flag of the given item_id by the action
     :param item_id:

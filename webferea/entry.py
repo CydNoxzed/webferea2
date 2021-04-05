@@ -32,6 +32,12 @@ def show_item(item_id):
         flash("No Item found")
         return redirect(url_for("feed.show_feed"))
 
+    # use the long version of the entry from the metadata, instead the short version
+    metadata = db.get_metadata_by_item_id(item_id)
+    rich_content = metadata.get("richContent")
+    if rich_content:
+        entry['description'] = rich_content
+
     # change/filter the output of the entry
     link_prefix = helpers.get_base_url(entry["source"])
     entry['description'] = helpers.format_iframes(entry['description'])
