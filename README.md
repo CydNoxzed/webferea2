@@ -47,6 +47,9 @@ The configuration should be placed as "config.json" inside the instance folder.
 - WORDS_PER_MINUTE: Words you can read per minute. Used to calculate the aprox. reading time (default: 240)
 - SHOW_READ_ENTITIES_PER_DEFAULT: Should the already read items be seen? (Default: False)
 
+#### Docker
+
+If you want to run webferea with docker, use the Dockerfile or the docker-compose.yaml.
 
 #### lighttpd
 ```

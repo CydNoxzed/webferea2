@@ -1,0 +1,19 @@
+version: '2'
+services:
+  flask:
+    image: python:3
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - "./:/app"
+    ports:
+      - "127.0.0.1:8081:8000"
+    environment:
+      - SECRET_KEY=secretkey
+      - FLASK_ENV=development
+      - FLASK_RUN_PORT=8000
+      - FLASK_RUN_HOST=0.0.0.0
+      - FLASK_APP=webferea
+
+      - TZ=Europe/Berlin
