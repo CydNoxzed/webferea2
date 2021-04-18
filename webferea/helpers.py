@@ -111,7 +111,7 @@ def format_datetime(timestamp) -> str:
 
 
 def format_iframes(content) -> str:
-    regex = r"(<iframe[^=>]*src=[\'\"]([^\"\'>]*)[\'\"][^>]*>)"
+    regex = r"(<iframe[^>]*src=[\'\"]([^\"\'>]*)[\'\"][^>]*>)"
     matches = re.findall(regex, content, re.MULTILINE)
     for iframe, url in matches:
         replace = f'[IFRAME] <a href="{url}">{url}</a> [/IFRAME]'

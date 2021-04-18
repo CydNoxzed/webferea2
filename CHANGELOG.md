@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+### Fixes
+
+- entry: change regex for the iframe filter, to catch iframes with different formatting
+
 
 ## [2.2.0] - 2021-04-18
 
