@@ -8,13 +8,15 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
     default_config = {
-        "SECRET_KEY": 'dev',
-        "DATABASE": 'liferea.db',
-        "SHOW_READ_ENTITIES_PER_DEFAULT": False,
-        "ITEMS_PER_PAGE": 10,
-        "HOST": "0.0.0.0",
-        "PORT": 8000,
-        "WORDS_PER_MINUTE": 240,
+        "SECRET_KEY": os.environ.get("SECRET_KEY", default='dev'),
+        "HOST": os.environ.get("FLASK_RUN_HOST", default="0.0.0.0"),
+        "PORT": os.environ.get("FLASK_RUN_PORT", default=8000),
+
+        "DATABASE": os.environ.get("WEBFEREA_DATABASE", default='liferea.db'),
+        "SHOW_READ_ENTITIES_PER_DEFAULT": os.environ.get("WEBFEREA_SHOW_READ_ENTITIES_PER_DEFAULT", default=False),
+        "ITEMS_PER_PAGE": os.environ.get("WEBFEREA_ITEMS_PER_PAGE", default=10),
+        "WORDS_PER_MINUTE": os.environ.get("WEBFEREA_WORDS_PER_MINUTE", default=240),
+
         "NODES": ()
     }
 
