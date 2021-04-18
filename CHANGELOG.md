@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Features
 
+- sync: add optional bz2 compression to the database transfer
 - deployment: add scripts for docker and docker-compose
 - entry: use full fetched post from the metadata table and not the preview from the feed
 - entry: filter out script-tags with src outside the posts domain

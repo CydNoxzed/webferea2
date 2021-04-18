@@ -5,11 +5,14 @@ import os
 import sqlite3
 import logging
 import argparse
+import bz2
 
 import requests
 
 
 class WebfereaSync:
+
+    COMPRESSIONS = ["bz2"]
 
     def __init__(self) -> None:
         self.target = ''
@@ -18,29 +21,38 @@ class WebfereaSync:
         self.local_database = ''
         self.temp_database = ''
         self.scheme = ''
+        self.compression = None
 
     def run(self):
         self.parse_args()
 
-        logging.info("Download...")
-        self.download()
-        logging.info("Merge...")
-        self.merge()
-        logging.info("Upload...")
-        self.upload()
+        try:
+            logging.info("Download...")
+            self.download()
+            logging.info("Merge...")
+            self.merge()
+            logging.info("Upload...")
+            self.upload()
+        except requests.exceptions.ConnectionError:
+            logging.critical(f"Connection to [{self.target}] failed")
+            exit(1)
 
     def download(self):
-        url = f"{self.scheme}://{self.target}/sync/download/"
+        url = self.get_url(download=True)
         resp = requests.get(url, data={}, auth=(self.username, self.password))
         if resp.status_code in [401]:
             logging.error("Authentication failed. Abort. Are password and username correct?")
             exit(1)
-        if resp.status_code != 200:
+        elif resp.status_code in [400]:
+            logging.error(f"Bad request: [{resp.content}]")
+            exit(1)
+        elif resp.status_code != 200:
             logging.error(f"Unknown error. Response Code is not 200. [{resp.content}]")
             exit(1)
 
         with open(self.temp_database, 'wb') as f:
-            f.write(resp.content)
+            data = self.decompress(resp.content)
+            f.write(data)
 
         if not self.is_sqlite3_file(self.temp_database):
             logging.error("Downloaded file is not a valid sqlite3 file. Abort.")
@@ -59,8 +71,14 @@ class WebfereaSync:
             logging.error("Database to upload is not a valid sqlite3 file. Abort.")
             exit(1)
 
-        url = f"{self.scheme}://{self.target}/sync/upload/"
-        files = {'database': open(self.local_database, 'rb')}
+        # copy and compress
+        with open(self.local_database, 'rb') as infile:
+            data = self.compress(infile.read())
+            with open(self.temp_database, 'wb') as zipped:
+                zipped.write(data)
+
+        url = self.get_url(upload=True)
+        files = {'database': open(self.temp_database, 'rb')}
         resp = requests.post(url, files=files, auth=(self.username, self.password))
 
         if resp.status_code in [400]:
@@ -73,6 +91,18 @@ class WebfereaSync:
     def delete_temp_file(self):
         if os.path.exists(self.temp_database):
             os.remove(self.temp_database)
+
+    def compress(self, data):
+        if not self.compression:
+            return data
+        if self.compression == 'bz2':
+            return bz2.compress(data, compresslevel=9)
+
+    def decompress(self, data):
+        if not self.compression:
+            return data
+        if self.compression == 'bz2':
+            return bz2.decompress(data)
 
     def get_all_changed_webitems(self, db):
         connection = sqlite3.connect(db)
@@ -155,6 +185,11 @@ class WebfereaSync:
                 return True
         return False
 
+    def get_url(self, upload=False, download=False):
+        way = 'upload' if upload else 'download'
+        compression = self.compression if self.compression else ''
+        return f"{self.scheme}://{self.target}/sync/{way}/{compression}"
+
     def parse_args(self):
         parser = argparse.ArgumentParser(
             description="Sync the liferea.db with a webferea instance.",
@@ -191,6 +226,13 @@ class WebfereaSync:
             default="https"
         )
         parser.add_argument(
+            '-c',
+            dest="compression",
+            help=f"transfer compression (default: none)",
+            choices=self.COMPRESSIONS,
+            default=None
+        )
+        parser.add_argument(
             '-q', '--quiet',
             dest="quiet",
             help="Only output errors.",
@@ -212,6 +254,7 @@ class WebfereaSync:
         self.local_database = os.path.expanduser(args.sqlite)
         self.temp_database = os.path.expanduser(args.tempfilepath)
         self.scheme = args.scheme
+        self.compression = args.compression
 
         level = logging.INFO
         if args.quiet:

@@ -140,17 +140,8 @@ def filter_external_scripts(content, link_prefix="/") -> str:
     return content
 
 
-def is_sqlite3_stream(stream) -> bool:
-    """ Check if the sqlite3file is valid
-    credits to: http://stackoverflow.com/questions/12932607/
-    :param stream
-    :return: True|False
-    """
-    header = stream.read(16)
-    stream.seek(0)
-    if header == b'SQLite format 3\000':
-        return True
-    return False
+def is_sqlite3_data(data) -> bool:
+    return data.startswith(b'SQLite format 3\000')
 
 
 def set_last_sync():
