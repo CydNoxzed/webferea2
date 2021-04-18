@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+
+## [2.2.0] - 2021-04-18
+
 ### Features
 
 - sync: add optional bz2 compression to the database transfer
@@ -43,5 +47,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial release
 
-[Unreleased]: https://github.com/CydNoxzed/webferea2/compare/2.1.0...HEAD
+[Unreleased]: https://github.com/CydNoxzed/webferea2/compare/2.2.0...HEAD
+[2.2.0]: https://github.com/CydNoxzed/webferea2/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/CydNoxzed/webferea2/compare/2.0.0...2.1.0
