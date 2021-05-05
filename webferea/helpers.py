@@ -127,7 +127,14 @@ def format_internal_links(content, link_prefix="/") -> str:
     for reg in regex:
         matches = re.findall(reg, content, re.MULTILINE)
         for link, url in matches:
+            # convert lazy loading data-src attribute to src
+            if "img" in link and " src=" not in link:
+                content = content.replace(link, link.replace('-src=', ' src='))
+
+            # replace links
             content = content.replace(f'/{url}', f'{link_prefix}{url}')
+
+
     return content
 
 
