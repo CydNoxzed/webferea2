@@ -791,6 +791,9 @@ section > .buttonbox {
     margin-bottom: 1em;
 }
 
+.item_content * {
+    max-width: 100vw!important;
+}
 
 /*
  * Flash

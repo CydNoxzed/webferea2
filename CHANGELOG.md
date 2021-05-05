@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - entry: change title link to open in blank tab
 - entry: change link filter to replace lazy loading img src attributes
+- entry: set the max with of the detail page to 100vw!important
 
 ### Fixes
 
