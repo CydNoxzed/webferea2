@@ -121,12 +121,15 @@ def format_iframes(content) -> str:
 
 def format_internal_links(content, link_prefix="/") -> str:
     regex = [
-        r"(<img[^=>]*src=[\'\"]/([^\/\"\'>]*)[\'\"][^>]*>)",
-        r"(<a[^=>]*href=[\'\"]/([^\/\"\'>]*)[\'\"][^>]*>)"
+        r"(<img[^=>]*src=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)",
+        r"(<a[^=>]*href=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)"
     ]
     for reg in regex:
         matches = re.findall(reg, content, re.MULTILINE)
         for link, url in matches:
+            if url.startswith('/'):  # ignore urls that starts with "//", cause they are protocol independent
+                continue
+
             # convert lazy loading data-src attribute to src
             if "img" in link and " src=" not in link:
                 content = content.replace(link, link.replace('-src=', ' src='))

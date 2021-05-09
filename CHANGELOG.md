@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - entry: change regex for the iframe filter, to catch iframes with different formatting
 - link filter: don't interpret links that start with "//" as relative
+- link filter: fix ignoring of links that contains "/" inside
 
 
 ## [2.2.0] - 2021-04-18
