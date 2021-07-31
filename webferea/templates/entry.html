@@ -17,13 +17,40 @@
 
 
 {% block main %}
-    <div class="item_content">
+    <div class="item_content" data-id="{{ entry.item_id }}">
         <h2><a target="_blank" href="{{ entry.source }}">{{ entry.title }}</a></h2>
 
         <div class="date">{{ entry.date|datetime }} - {{ entry.node_title }}</div>
 
         {{ entry.description|safe }}
     </div>
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function(event) {
+            restoreScrollProgress();
+            window.onscroll = function() {
+                saveScrollProgress()
+            };
+        });
+
+        function restoreScrollProgress() {
+            var identifier = document.querySelector('.item_content').getAttribute('data-id');
+            var progress = localStorage.getItem(identifier + "_progress");
+
+            if (progress) {
+                window.scrollTo(0, progress);
+            }
+        }
+
+        function saveScrollProgress() {
+            var identifier = document.querySelector('.item_content').getAttribute('data-id');
+            localStorage.setItem(identifier + "_progress", window.scrollY);
+        }
+
+        function resetAllScrollProgress() {
+            LocalStorage.clear();
+        }
+    </script>
 {% endblock %}
 
 

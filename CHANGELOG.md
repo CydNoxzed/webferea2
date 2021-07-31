@@ -6,13 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-### Features
+Features:
 
 - entry: change title link to open in blank tab
 - entry: change link filter to replace lazy loading img src attributes
 - entry: set the max with of the detail page to 100vw!important
+- entry: save the windows scrollX in the browsers local storage, to save the reading progress
 
-### Fixes
+Fixes:
 
 - entry: change regex for the iframe filter, to catch iframes with different formatting
 - link filter: don't interpret links that start with "//" as relative
@@ -21,7 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [2.2.0] - 2021-04-18
 
-### Features
+Features:
 
 - sync: add optional bz2 compression to the database transfer
 - deployment: add scripts for docker and docker-compose
@@ -31,8 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - theme: remove padding in flash message
 - theme: make the items on the list a bit more compact
 
-
-### Fixes
+Fixes:
 
 - db: catch error, if database is not synced yet
 - auth: check if the username and password values in the config are not empty
