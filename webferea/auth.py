@@ -32,7 +32,10 @@ def login():
 
             # create default session keys
             if "show_read" not in session:
-                session["show_read"] = current_app.config['SHOW_READ_ENTITIES_PER_DEFAULT']
+                if current_app.config['SHOW_READ_ENTITIES_PER_DEFAULT'] == 'True':
+                    session["show_read"] = True
+                else:
+                    session["show_read"] = False
             if "page" not in session:
                 session["page"] = 1
 
