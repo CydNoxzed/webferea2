@@ -39,6 +39,10 @@
                     </form>
                 {% endif %}
 
+                <span class="button">
+                    <a href="javascript:void(0)" onclick="localStorage.clear();">ClearLocalStorage</a>
+                </span>
+
                 <form method="post" action="{{ url_for('auth.logout') }}">
                     <button type="submit">Log out</button>
                 </form>
