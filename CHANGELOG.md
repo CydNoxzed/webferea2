@@ -12,12 +12,15 @@ Features:
 - entry: change link filter to replace lazy loading img src attributes
 - entry: set the max with of the detail page to 100vw!important
 - entry: save the windows scrollX in the browsers local storage, to save the reading progress
+- entry: delete all local storage entries with menu button
+- feed: change highlight color of an item, if it has a reading progress
 
 Fixes:
 
 - entry: change regex for the iframe filter, to catch iframes with different formatting
 - link filter: don't interpret links that start with "//" as relative
 - link filter: fix ignoring of links that contains "/" inside
+- show read: default variable was not converted the right way
 
 
 ## [2.2.0] - 2021-04-18
