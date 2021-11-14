@@ -38,6 +38,11 @@
   --variable: #d941e2;
   --highlight: #efdb43;
 
+  --read: #3333ff;
+  --marked: #ff3333;
+  --read_marked: #7c26cb;
+  --progress: #ffad33;
+
   --select-arrow: url("data:image/svg+xml;charset=utf-8,%3C?xml version='1.0' encoding='utf-8'?%3E %3Csvg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' height='62.5' width='116.9' fill='%23efefef'%3E %3Cpath d='M115.3,1.6 C113.7,0 111.1,0 109.5,1.6 L58.5,52.7 L7.4,1.6 C5.8,0 3.2,0 1.6,1.6 C0,3.2 0,5.8 1.6,7.4 L55.5,61.3 C56.3,62.1 57.3,62.5 58.4,62.5 C59.4,62.5 60.5,62.1 61.3,61.3 L115.2,7.4 C116.9,5.8 116.9,3.2 115.3,1.6Z'/%3E %3C/svg%3E");
 }
 
@@ -721,13 +726,16 @@ section.separator {
 }
 
 section.read > .text {
-    border-left: 2px #3333ff solid;
+    border-left: 2px var(--read) solid;
 }
 section.marked > .text {
-    border-left: 2px #ff3333 solid;
+    border-left: 2px var(--marked) solid;
 }
 section.marked.read > .text {
-    border-left: 2px #7c26cb solid;
+    border-left: 2px var(--read_marked) solid;
+}
+section.progress > .text {
+    border-left: 2px var(--progress) solid;
 }
 
 section > .text {
@@ -793,6 +801,10 @@ section > .buttonbox {
 
 .item_content * {
     max-width: 100vw!important;
+}
+
+.item_content a>img{
+    box-shadow: 0px 0px 5px 0px var(--links);
 }
 
 /*

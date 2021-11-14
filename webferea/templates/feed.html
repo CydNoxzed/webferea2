@@ -30,7 +30,10 @@
     {# {% for item in iterable|sort(attribute='date') %} #}
     {% for entry in entries %}
         {% if not entry.text %}
-            <section class="item {% if entry.read == 1 %}read{% endif %} {% if entry.marked == 1 %}marked{% endif %}">
+            <section
+                class="item {% if entry.read == 1 %}read{% endif %} {% if entry.marked == 1 %}marked{% endif %}"
+                data-id="{{ entry.item_id }}"
+            >
                 <div class="text" onclick="location.href='/item/{{ entry.item_id }}/';" style="cursor: pointer;">
                     <div class="item_title"><a href="/item/{{ entry.item_id }}/">{{ entry.title }}</a></div>
                     <div class="wordcount">{{ ((entry.description|wordcount / wpm )|round(0,"ceil"))|int }} Minutes - {{
@@ -46,6 +49,17 @@
                 <div class="text">{{ entry.text }}</div>
             </section>
         {% endif %}
+
+        <script>
+            var sections = document.querySelectorAll("section.item:not(.read):not(.mark)");
+            sections.forEach(function(section) {
+                var id = section.dataset.id;
+                var s = localStorage.getItem(id+"_progress");
+                if (s !== null && s > 0) {
+                    section.classList.add('progress');
+                }
+            });
+        </script>
     {% else %}
         <section><em>No entries found...</em></section>
     {% endfor %}
