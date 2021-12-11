@@ -14,6 +14,7 @@ Features:
 - entry: save the windows scrollX in the browsers local storage, to save the reading progress
 - entry: delete all local storage entries with menu button
 - feed: change highlight color of an item, if it has a reading progress
+- main: Navigation moved from the header into the footer
 
 Fixes:
 

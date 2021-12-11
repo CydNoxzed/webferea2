@@ -576,10 +576,12 @@ summary::-webkit-details-marker {
 
 footer {
   padding-top: 10px;
-  font-size: 0.8em;
+  font-size: 1em;
   color: var(--text-muted);
 }
-
+footer > .infobar {
+  font-size: 0.8em;
+}
 
 
 

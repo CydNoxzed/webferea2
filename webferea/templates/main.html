@@ -1,6 +1,23 @@
 {% extends "base.html" %}
 {% block body %}
     <header>
+    </header>
+
+    <aside>
+        {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message|safe }}</div>
+        {% endfor %}
+    </aside>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+
+    <footer>
+        {% if infobar %}
+        <div class="infobar">{{ infobar }}</div>
+        {% endif %}
+
         <nav>
 
             <div class="left">
@@ -50,22 +67,7 @@
             </div>
 
         </nav>
-    </header>
 
-    <aside>
-        {% for message in get_flashed_messages() %}
-        <div class="flash">{{ message|safe }}</div>
-        {% endfor %}
-    </aside>
-
-    <main>
-        {% block main %}{% endblock %}
-    </main>
-
-    <footer>
-        {% if infobar %}
-        {{ infobar }}
-        {% endif %}
     </footer>
 
 {% endblock %}
