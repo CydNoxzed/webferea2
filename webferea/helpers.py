@@ -111,6 +111,8 @@ def format_datetime(timestamp) -> str:
 
 
 def format_iframes(content) -> str:
+    if content is None:
+        return content
     regex = r"(<iframe[^>]*src=[\'\"]([^\"\'>]*)[\'\"][^>]*>)"
     matches = re.findall(regex, content, re.MULTILINE)
     for iframe, url in matches:
@@ -120,6 +122,8 @@ def format_iframes(content) -> str:
 
 
 def format_internal_links(content, link_prefix="/") -> str:
+    if content is None:
+        return content
     regex = [
         r"(<img[^=>]*src=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)",
         r"(<a[^=>]*href=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)"
@@ -142,6 +146,8 @@ def format_internal_links(content, link_prefix="/") -> str:
 
 
 def filter_external_scripts(content, link_prefix="/") -> str:
+    if content is None:
+        return content
     regex = r"(<script[^=>]*src=[\'\"]([^\"\'>]*)[\'\"][^>]*>)"
     matches = re.findall(regex, content, re.MULTILINE)
     for tag, url in matches:
