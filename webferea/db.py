@@ -69,8 +69,9 @@ def get_items_by_node_titles(node_titles):
     db = get_db()
 
     hide_read_snipplet = "OR (webferea <> '')" if session["show_read"] else ""
+    node_snipplet = "', '".join(node_titles)
 
-    query = """
+    query = f"""
         SELECT 
             items.*, 
             node.title AS node_title 
@@ -78,14 +79,22 @@ def get_items_by_node_titles(node_titles):
         JOIN node 
             ON node.node_id = items.node_id
         WHERE 
-            node.title IN ('%s')
+            node.node_id IN (
+                SELECT node.node_id
+                FROM node
+                JOIN node as parent_node
+                    ON parent_node.node_id = node.parent_id
+                WHERE 
+                    node.title IN ('{node_snipplet}')
+                    OR parent_node.title IN ('{node_snipplet}')
+            )
             AND items.comment = 0 
             AND (( 
                     items.read = 0 
                     AND items.marked = 0 
-                ) %s )
+                ) {hide_read_snipplet} )
             ORDER BY items.date DESC
-        """ % ("', '".join(node_titles), hide_read_snipplet)
+        """
 
     cur = db.execute(query)
     entries = cur.fetchall()
@@ -176,13 +185,22 @@ def get_statistics(node_titles):
     """
     db = get_db()
     counts = []
+    node_snipplet = "', '".join(node_titles)
     for i in ["OR (webferea <> '')", ""]:
         query = f"""
             SELECT count(node.title) AS count
             FROM items 
             JOIN node ON node.node_id = items.node_id
             WHERE 
-                node.title IN ('{"', '".join(node_titles)}')
+                node.node_id IN (
+                    SELECT node.node_id
+                    FROM node
+                    JOIN node as parent_node
+                        ON parent_node.node_id = node.parent_id
+                    WHERE 
+                        node.title IN ('{node_snipplet}')
+                        OR parent_node.title IN ('{node_snipplet}')
+                )
                 AND items.comment = 0 
                 AND (
                     (items.read = 0 AND items.marked = 0) 

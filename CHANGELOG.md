@@ -15,6 +15,7 @@ Features:
 - entry: delete all local storage entries with menu button
 - feed: change highlight color of an item, if it has a reading progress
 - main: Navigation moved from the header into the footer
+- db: allow a folder as node name in the configuration to fetch all feeds that are directly in this folder
 
 Fixes:
 
