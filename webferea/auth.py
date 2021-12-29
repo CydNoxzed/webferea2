@@ -1,5 +1,6 @@
 import functools
 
+import requests
 from flask import Blueprint
 from flask import flash
 from flask import redirect
@@ -40,7 +41,7 @@ def login():
                 session["page"] = 1
 
             flash('You were logged in')
-            return redirect(url_for('feed.show_feed'))
+            return redirect_dest(request.args.get('next'))
 
     # return "login.html"
     return render_template('login.html', error=error)
@@ -52,3 +53,9 @@ def logout():
     session.clear()
     flash('You were logged out')
     return redirect(url_for("auth.login"))
+
+
+def redirect_dest(redirect_to=''):
+    if redirect_to == '':
+        redirect_to = url_for('feed.show_feed')
+    return redirect(redirect_to)
