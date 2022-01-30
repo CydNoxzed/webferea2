@@ -35,41 +35,54 @@ def handle_actions(**kwargs):
     :return: kwargs
     """
 
-    msg = ''
+    msgs = []
     action = request.form.get('action')
-    item_id = request.form.get('item_id')
     if not action:
         return kwargs
 
-    # Set the page to 1 if the show_read session was changed
-    if action == "show_read" and not item_id:
-        session["show_read"] = True
-        msg = "Show read items"
-        kwargs['page'] = 1
-    if action == "hide_read" and not item_id:
-        session["show_read"] = False
-        msg = "Hide read items"
-        kwargs['page'] = 1
+    if action == "settings":
+        # Set the page to 1 if the show_read session was changed
+        show_read = request.form.get('show_read')
+        if show_read == '1':
+            session["show_read"] = True
+            msgs.append("Show read items")
+            kwargs['page'] = 1
 
-    if item_id:
-        item = db.get_item_by_id(item_id)
-        title = jinja2.filters.do_truncate(None, item['title'], 45, False, '...', 0)
-        if action == "read":
-            ret = db.set_item_flags(item_id, action)
-            msg = f"Read: <em>{title}</em>" if ret else "Cant set read flag"
-        elif action == "unread":
-            ret = db.set_item_flags(item_id, action)
+        hide_read = request.form.get('hide_read')
+        if hide_read == '1':
+            session["show_read"] = False
+            msgs.append("Hide read items")
+            kwargs['page'] = 1
 
-            msg = f"Unread: <em>{title}</em>" if ret else "Cant unset read flag"
-        elif action == "mark":
-            ret = db.set_item_flags(item_id, action)
-            msg = f"Marked: <em>{title}</em>" if ret else "Cant set marked flag"
-        elif action == "unmark":
-            ret = db.set_item_flags(item_id, action)
-            msg = f"Unmarked: <em>{title}</em>" if ret else "Cant unset marked flag"
+    if action == 'entry':
+        item_ids = request.form.get('ids').split(",")
+        for item_id in item_ids:
+            item = db.get_item_by_id(item_id)
+            if item:
+                flags = []
+                read = request.form.get('read')
+                if read == '1':  # read
+                    if db.set_item_flags(item_id, 'read'):
+                        flags.append('Read')
+                elif read == '0':  # unread
+                    if db.set_item_flags(item_id, 'unread'):
+                        flags.append('Unread')
 
-    if msg and len(msg) > 0:
-        flash(msg)
+                mark = request.form.get('mark')
+                if mark == '1':  # mark
+                    if db.set_item_flags(item_id, 'mark'):
+                        flags.append('Mark')
+                elif mark == '0':  # unmark
+                    if db.set_item_flags(item_id, 'unmark'):
+                        flags.append('Unmark')
+
+                if len(flags) > 0:
+                    title = jinja2.filters.do_truncate(None, item['title'], 45, False, '...', 0)
+                    msgs.append(f"{','.join(flags)}: <em>{title}</em>")
+
+    for msg in msgs:
+        if msg and len(msg) > 0:
+            flash(msg)
 
     return kwargs
 

@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 Features:
 
 - theme: move theme into separate directory and the possibility to change the theme
+- api: change post-fields for settings and entry modification in template and backend
 
 ## [2.3.0] - 2022-01-15
 

@@ -46,12 +46,14 @@
 
                 {% if not session.show_read %}
                     <form method="post">
-                        <input type="hidden" name="action" value="show_read"/>
+                        <input type="hidden" name="action" value="settings"/>
+                        <input type="hidden" name="show_read" value="1"/>
                         <button type="submit">ShowRead</button>
                     </form>
                 {% else %}
                     <form method="post">
-                        <input type="hidden" name="action" value="hide_read"/>
+                        <input type="hidden" name="action" value="settings"/>
+                        <input type="hidden" name="hide_read" value="1"/>
                         <button type="submit">HideRead</button>
                     </form>
                 {% endif %}
