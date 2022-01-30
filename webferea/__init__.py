@@ -13,6 +13,8 @@ def create_app(test_config=None):
         "PORT": os.environ.get("FLASK_RUN_PORT", default=8000),
 
         "DATABASE": os.environ.get("WEBFEREA_DATABASE", default='liferea.db'),
+        "THEME": 'default',
+        "THEMES_DIR": '',
         "SHOW_READ_ENTITIES_PER_DEFAULT": os.environ.get("WEBFEREA_SHOW_READ_ENTITIES_PER_DEFAULT", default=False),
         "ITEMS_PER_PAGE": os.environ.get("WEBFEREA_ITEMS_PER_PAGE", default=10),
         "WORDS_PER_MINUTE": os.environ.get("WEBFEREA_WORDS_PER_MINUTE", default=240),
@@ -27,6 +29,13 @@ def create_app(test_config=None):
 
     # set setting to app
     app.config.update(**merged_config)
+
+    # set theme
+    from .helpers import get_valid_theme_path
+    theme_dir = get_valid_theme_path(app)
+    app.static_folder = str(theme_dir / 'static')
+    app.template_folder = str(theme_dir / 'templates')
+
 
     # ensure the instance folder exists
     try:

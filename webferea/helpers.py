@@ -3,6 +3,7 @@ import datetime
 import os
 import base64
 import re
+import pathlib
 from urllib.parse import urlsplit, urlunsplit, SplitResult
 from pprint import pprint
 
@@ -189,3 +190,62 @@ def get_base_url(url):
     split_url_dict['query'] = ''
     split_url_dict['fragment'] = ''
     return urlunsplit(SplitResult(**split_url_dict))
+
+
+def get_valid_theme_path(app):
+
+    custom_themes_dir = app.config['THEMES_DIR']
+    theme_name = app.config['THEME']
+    theme_dir = ""
+
+    default_themes_dir = pathlib.Path(__file__).resolve().parents[1] / 'themes' / theme_name
+    instance_themes_dir = pathlib.Path(app.instance_path) / theme_name
+
+    possible_themes_dirs = [
+        # theme inside instance directory
+        instance_themes_dir,
+        # library default directory
+        default_themes_dir,
+    ]
+
+    if custom_themes_dir.strip() != "":
+        # theme dir from the environment
+        possible_themes_dirs.insert(0, pathlib.Path(custom_themes_dir))
+
+    expected_paths = ["templates", "static"]
+    expected_templates = ["login.html", "feed.html", "entry.html"]
+
+    for possible_dir in possible_themes_dirs:
+        try:
+            if not possible_dir.exists():
+                continue
+            if not subdirectories_exists(possible_dir, expected_paths):
+                continue
+            if not files_exists(possible_dir / 'templates', expected_templates):
+                continue
+            theme_dir = possible_dir
+            break
+
+        except FileNotFoundError as e:
+            pass
+    return theme_dir
+
+
+def subdirectories_exists(path: pathlib.Path, subdirectories: list):
+    for sub in subdirectories:
+        p = path / sub
+        if not p.exists() and not p.is_dir():
+            return False
+    return True
+
+
+def files_exists(path: pathlib.Path, files: list):
+    for file in files:
+        p = path / file
+        if not p.exists() and not p.is_file():
+            return False
+    return True
+
+
+
+
