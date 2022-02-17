@@ -15,6 +15,7 @@ from flask import request
 from flask import flash
 from flask import abort
 import jinja2
+import bleach
 
 from . import db
 
@@ -61,20 +62,22 @@ def handle_actions(**kwargs):
             if item:
                 flags = []
                 read = request.form.get('read')
-                if read == '1':  # read
-                    if db.set_item_flags(item_id, 'read'):
-                        flags.append('Read')
-                elif read == '0':  # unread
-                    if db.set_item_flags(item_id, 'unread'):
-                        flags.append('Unread')
+                if read and int(read) != item['read']:
+                    if read == '1':  # read
+                        if db.set_item_flags(item_id, 'read'):
+                            flags.append('Read')
+                    elif read == '0':  # unread
+                        if db.set_item_flags(item_id, 'unread'):
+                            flags.append('Unread')
 
                 mark = request.form.get('mark')
-                if mark == '1':  # mark
-                    if db.set_item_flags(item_id, 'mark'):
-                        flags.append('Mark')
-                elif mark == '0':  # unmark
-                    if db.set_item_flags(item_id, 'unmark'):
-                        flags.append('Unmark')
+                if mark and int(mark) != item['marked']:
+                    if mark == '1':  # mark
+                        if db.set_item_flags(item_id, 'mark'):
+                            flags.append('Mark')
+                    elif mark == '0':  # unmark
+                        if db.set_item_flags(item_id, 'unmark'):
+                            flags.append('Unmark')
 
                 if len(flags) > 0:
                     title = jinja2.filters.do_truncate(None, item['title'], 45, False, '...', 0)
@@ -140,6 +143,8 @@ def format_internal_links(content, link_prefix="/") -> str:
         return content
     regex = [
         r"(<img[^=>]*src=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)",
+        r"(<img[^=>]*srcset=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)",
+        r"(<source[^=>]*srcset=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)",
         r"(<a[^=>]*href=[\'\"]/([^\"\'>]*)[\'\"][^>]*>)"
     ]
     for reg in regex:
@@ -167,6 +172,46 @@ def filter_external_scripts(content, link_prefix="/") -> str:
     for tag, url in matches:
         if not url.startswith("/") or link_prefix not in url:
             content = content.replace(tag, '')
+    return content
+
+
+
+class StyleTagFilter(bleach.html5lib_shim.Filter):
+    """
+    https://bleach.readthedocs.io/en/latest/clean.html?highlight=strip#html5lib-filters-filters
+    """
+
+    def __iter__(self):
+        in_style_tag = False
+        for token in bleach.html5lib_shim.Filter.__iter__(self):
+            if token["type"] == "StartTag" and token["name"] == "style":
+                in_style_tag = True
+            elif token["type"] == "EndTag":
+                in_style_tag = False
+            elif in_style_tag:
+                # If we are in a style tag, strip the contents
+                token["data"] = ""
+            yield token
+
+
+def filter_bleach(content: str) -> str:
+    tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'strong', 'ul',
+            'h1', 'h2', 'h3', 'h4', 'h5', 'p', 'figure', 'audio', 'video', 'img', 'picture', 'source',
+            'table', 'thead', 'tbody', 'tr', 'td', 'style', 'div']
+    attributes = {
+        **bleach.ALLOWED_ATTRIBUTES,
+        "img": ["alt", "src", "srcset", "loading"],
+        "audio": ["controls", "preload"],
+        "source": ["srcset", "media", "src"]
+    }
+    protocols = bleach.ALLOWED_PROTOCOLS + ['gemini']
+
+    # clean <style> tags too
+    cleaner = bleach.sanitizer.Cleaner(
+        tags=tags, attributes=attributes, protocols=protocols, strip=True,
+        filters=[StyleTagFilter]
+    )
+    content = cleaner.clean(content)
     return content
 
 

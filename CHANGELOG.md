@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Features:
 
+- entry: use bleach to clean the html of the feed entry
 - theme: move theme into separate directory and the possibility to change the theme
 - api: change post-fields for settings and entry modification in template and backend
 
