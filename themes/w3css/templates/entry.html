@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+<div class="header-progress theme-primary"></div>
+{% endblock %}
+
+{% block content %}
+
+<div id="entry" data-id="{{ entry.item_id }}" class="w3-card w3-container w3-display-container item-grid w3-margin-bottom">
+
+    <input name="ids" value="{{ entry.item_id }}" type="checkbox" class="w3-hide" checked>
+
+    <div class="w3-container">
+        <h3><b><a target="_blank" href="{{ entry.source }}">{{ entry.title }}</a></b></h3>
+        <h5>{{ entry.node_title }}, <span class="w3-opacity">{{ entry.date|datetime }}</span></h5>
+    </div>
+
+    <div class="w3-container">
+        {{ entry.description|bleach|safe }}
+    </div>
+
+</div>
+{% endblock %}
+
+
+{% block bottom_menu %}
+<nav class="bottom-menu w3-large theme-primary">
+
+    <label for="sidebar-toggle" class="w3-bar-item w3-button">
+        <span class="">
+            <i class="fa fa-bars"></i>
+        </span>
+    </label>
+
+    <span></span>
+    <span></span>
+
+    <a class="w3-bar-item w3-button" href="/page/{{ session.page }}/">
+        <i class="fa fa-times" aria-hidden="true"></i>
+    </a>
+
+    <label for="sidebar-right-toggle" class="w3-bar-item w3-button">
+        <span class="">
+            <i class="fa fa-ellipsis-h"></i>
+        </span>
+    </label>
+
+</nav>
+{% endblock %}

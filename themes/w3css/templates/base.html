@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+<head>
+    <title>Webferea</title>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <meta name="theme-color" content="#000000">
+
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='w3-formatted.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='font-awesome.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='layout.css') }}">
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+
+
+<body id="body" class="theme-background">
+
+{% block sidebar %}
+<input type="checkbox" id="sidebar-toggle" class="w3-hide">
+<div class="sidebar-wrapper sidebar-left">
+    <nav class="w3-bar-block w3-card sidebar-menu theme-primary">
+
+        <details open>
+            <summary class="w3-bar-item w3-button">Settings <i class="fa fa-caret-down"></i><i
+                    class="fa fa-caret-up"></i></summary>
+
+            {% if not session.show_read %}
+                <form method="post">
+                    <input type="hidden" name="action" value="settings"/>
+                    <input type="hidden" name="show_read" value="1"/>
+                    <button class="w3-bar-item w3-button" type="submit">Show Read</button>
+                </form>
+            {% else %}
+                <form method="post">
+                    <input type="hidden" name="action" value="settings"/>
+                    <input type="hidden" name="hide_read" value="1"/>
+                    <button class="w3-bar-item w3-button" type="submit">Hide Read</button>
+                </form>
+            {% endif %}
+
+
+            <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="localStorage.clear();">Clear Local Storage</a>
+            {#
+            <a class="w3-bar-item w3-button disabled" href="#">Change Font</a>
+            <a class="w3-bar-item w3-button disabled" href="#">Toggle Theme</a>
+            #}
+        </details>
+
+        <hr>
+
+        <a class="w3-bar-item w3-button" href="{{ url_for('auth.logout') }}">Logout</a>
+
+        <hr>
+
+        <label for="sidebar-toggle" class="w3-bar-item w3-button w3-center theme-secondary w3-large">
+            <i class="fa fa-remove"></i>
+        </label>
+
+    </nav>
+
+    <label for="sidebar-toggle" class="shadow"></label>
+
+</div>
+{% endblock %}
+
+
+{% block sidebar_right %}
+<input type="checkbox" id="sidebar-right-toggle" class="w3-hide">
+<div class="sidebar-wrapper sidebar-right">
+    <nav class="w3-bar-block w3-card sidebar-menu theme-primary">
+
+        <form name="form_sidebar_right" action="/page/{{ session.page }}/" method="post">
+
+            <label for="action_mark" class="w3-bar-item w3-button">
+                <input id="action_mark" type="checkbox" class="w3-check">&nbsp;Mark
+            </label>
+
+            <label for="action_read" class="w3-bar-item w3-button">
+                <input id="action_read" type="checkbox" class="w3-check" checked>&nbsp;Read
+            </label>
+
+            <hr>
+
+            <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="sendActionForm('');">
+                <i class="fa fa-save" aria-hidden="true"></i>&nbsp;Save
+            </a>
+            {% if entry %}
+            <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="sendActionForm('/page/{{ session.page }}/');">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>&nbsp;Save & Close
+            </a>
+            {% endif %}
+
+        </form>
+
+        <hr>
+
+        <label for="sidebar-right-toggle" class="w3-bar-item w3-button w3-center w3-large theme-secondary">
+            <i class="fa fa-remove"></i>
+        </label>
+
+    </nav>
+
+    <label for="sidebar-right-toggle" class="shadow"></label>
+
+</div>
+{% endblock %}
+
+
+<main class="w3-main">
+
+    <div class="header">
+        {% block header %}{% endblock %}
+    </div>
+
+    <div class="section-wrapper">
+    <section class="w3-container w3-content">
+
+        <aside>
+            {% for message in get_flashed_messages(category_filter=["error"]) %}
+            <div class="w3-panel w3-card-4 theme-secondary">
+                <p><i class="fa fa-exclamation" aria-hidden="true"></i> {{ message|safe }}</p>
+            </div>
+            {% endfor %}
+
+            {% for message in get_flashed_messages(category_filter=["success"]) %}
+            <div class="w3-panel w3-card-4 theme-secondary">
+                <p><i class="fa fa-info" aria-hidden="true"></i> {{ message|safe }}</p>
+            </div>
+            {% endfor %}
+
+            {% for message in get_flashed_messages(category_filter=["message"]) %}
+            <div class="w3-panel w3-card-4 theme-secondary">
+                <p><i class="fa fa-info" aria-hidden="true"></i> {{ message|safe }}</p>
+            </div>
+            {% endfor %}
+        </aside>
+
+        {% block content %}{% endblock %}
+
+    </section>
+    </div>
+
+    {% block bottom_menu %}
+    <nav class="bottom-menu w3-large theme-primary">
+
+        <label for="sidebar-toggle" class="w3-bar-item w3-button">
+            <span class="">
+                <i class="fa fa-bars"></i>
+            </span>
+        </label>
+
+        {% if pagination.has_prev %}
+        <a  class="w3-bar-item w3-button" href="{{pagination.prev_link}}"><i class="fa fa-arrow-left"></i></a>
+        {% else %}
+        <span  class="w3-bar-item w3-button disabled"><i class="fa fa-arrow-left"></i></span>
+        {% endif %}
+
+        <select class="w3-bar-item w3-button pagination-dropdown">
+            {% for p in range(0, pagination.total) %}
+            {% if loop.index == pagination.page %}
+            <option value="{{loop.index}}" selected="selected">{{loop.index}}</option>
+            {% else %}
+            <option value="{{loop.index}}">{{loop.index}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
+
+        {% if pagination.has_next %}
+        <a class="w3-bar-item w3-button" href="{{pagination.next_link}}"><i class="fa fa-arrow-right"></i></a>
+        {% else %}
+        <span class="w3-bar-item w3-button disabled"><i class="fa fa-arrow-right"></i></span>
+        {% endif %}
+
+        <label for="sidebar-right-toggle" class="w3-bar-item w3-button">
+            <span class="">
+                <i class="fa fa-ellipsis-h"></i>
+            </span>
+        </label>
+
+    </nav>
+    {% endblock %}
+
+</main>
+
+</body>
+</html> 

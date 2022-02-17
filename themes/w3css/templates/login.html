@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="w3-card w3-display-container item-grid w3-margin-bottom theme-surface login">
+
+    <div class="w3-container w3-theme">
+        <h2>Login</h2>
+    </div>
+
+    <form class="w3-container" method="post">
+        <p>
+            <input name="username" class="w3-input" type="text">
+            <label>Username</label>
+        </p>
+        <p>
+            <input name="password" class="w3-input" type="password">
+            <label>Password</label>
+        </p>
+        <p>
+            <button class="w3-btn theme-primary">Login</button>
+        </p>
+    </form>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block actionbar %}
+{% endblock %}
+
+{% block action_button_starter %}
+{% endblock %}
+
+{% block bottom_menu %}
+{% endblock %}
+
+

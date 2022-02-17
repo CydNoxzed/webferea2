@@ -12,6 +12,7 @@ Features:
 - entry: use bleach to clean the html of the feed entry
 - feed: add total count to pagination
 - theme: move theme into separate directory and the possibility to change the theme
+- theme/w3css: initial
 - api: change post-fields for settings and entry modification in template and backend
 
 Fixes: 

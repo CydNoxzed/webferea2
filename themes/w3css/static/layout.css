@@ -1,0 +1,394 @@
+
+/*
+notifications:
+w3-red
+w3-blue
+w3-green
+
+
+
+:root {
+   --body-bg: #FFFFFF;
+   --body-color: #000000;
+}
+@media (prefers-color-scheme: dark) {
+   :root {
+       --body-bg: #000000;
+       --body-color: #FFFFFF;
+   }
+}
+
+:root {
+
+  --primary-color-h: 265;
+  --primary-color-s: 100%;
+  --primary-color-l: 47%;
+  --secondary-color-h: 180;
+  --secondary-color-s: 99%;
+  --secondary-color-l: 27%;
+  --contrastThreshold: 60%;
+
+
+  --lightnessTransform: 10%;
+  --darknessTransform: 15%;
+  --primary-color-light-l: calc(var(--primary-color-l) + var(--lightnessTransform));
+  --primary-color-dark-l: calc(var(--primary-color-l) - var(--darknessTransform));
+  --secondary-color-light-l: calc(var(--secondary-color-l) + var(--lightnessTransform));
+  --secondary-color-dark-l: calc(var(--secondary-color-l) - var(--darknessTransform));
+
+  --color-primary: hsl(var(--primary-color-h),
+                       var(--primary-color-s),
+                       var(--primary-color-l));
+  --color-secondary: hsl(var(--secondary-color-h),
+                       var(--secondary-color-s),
+                       var(--secondary-color-l));
+  --color-primary-dark:hsl(var(--primary-color-h),
+                       var(--primary-color-s),
+                       var(--primary-color-dark-l));
+  --color-secondary-dark:hsl(var(--secondary-color-h),
+                       var(--secondary-color-s),
+                       var(--secondary-color-dark-l));
+  --color-primary-light:hsl(var(--primary-color-h),
+                       var(--primary-color-s),
+                       var(--primary-color-light-l));
+  --color-secondary-light:hsl(var(--secondary-color-h),
+                       var(--secondary-color-s),
+                       var(--secondary-color-light-l));
+
+  --color-primary-complement: hsl(calc(var(--primary-color-h) + 180),
+                          var(--primary-color-s),
+                          var(--primary-color-l));
+  --color-primary-triad-1: hsl(calc(var(--primary-color-h) + 120),
+                          var(--primary-color-s),
+                          var(--primary-color-l));
+  --color-primary-triad-2: hsl(calc(var(--primary-color-h) - 120),
+                          var(--primary-color-s),
+                          var(--primary-color-l));
+  --color-secondary-complement: hsl(calc(var(--secondary-color-h) + 180),
+                          var(--secondary-color-s),
+                          var(--secondary-color-l));
+  --color-secondary-triad-1: hsl(calc(var(--secondary-color-h) + 120),
+                          var(--secondary-color-s),
+                          var(--secondary-color-l));
+  --color-secondary-triad-2: hsl(calc(var(--secondary-color-h) - 120),
+                          var(--secondary-color-s),
+                          var(--secondary-color-l));
+}
+
+
+
+
+http://bettermotherfuckingwebsite.com/
+
+*/
+:root {
+    --read: #3333ff;
+    --marked: #ff3333;
+    --read_marked: #7c26cb;
+    --progress: #ffad33;
+
+
+
+    --color-black: #000;
+    --color-white: #fff;
+
+    --color-background-bg: #fff;
+    --color-background-fg: #000;
+    --color-surface-bg: #fff;
+    --color-surface-fg: #000;
+
+    --color-primary-bg: #0b78dd;
+    --color-primary-fg: #fff;
+    --color-secondary-bg: #074b90;
+    --color-secondary-fg: #fff;
+
+}
+@media (prefers-color-scheme: dark-) {
+    :root {
+        --color-background-bg: #121212;
+        --color-background-fg: #fff;
+        --color-surface-bg: #373737;
+        --color-surface-fg: #fff;
+        --color-primary-bg: #373737;
+        --color-primary-fg: #fff;
+        --color-secondary-bg: #0b78dd;
+        --color-secondary-fg: #fff;
+    }
+}
+
+
+/*
+.read {
+    border-left: 2px var(--read) solid;
+}
+.marked {
+    border-left: 2px var(--marked) solid;
+}
+.marked.read {
+    border-left: 2px var(--read_marked) solid;
+}
+.progress {
+    border-left: 2px var(--progress) solid;
+}
+*/
+
+
+.theme-background {
+    color: var(--color-background-fg);
+    background-color: var(--color-background-bg);
+}
+
+.theme-surface {
+    color: var(--color-surface-fg);
+    background-color: var(--color-surface-bg);
+}
+.theme-primary {
+    color: var(--color-primary-fg);
+    background-color: var(--color-primary-bg);
+}
+.theme-secondary {
+    color: var(--color-secondary-fg);
+    background-color: var(--color-secondary-bg);
+}
+
+
+
+
+
+header, .header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+/*
+.content {
+    padding-top: 10px;
+}
+.margin-top {
+    margin-top: 64px;
+}
+*/
+
+
+.bottom-menu {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+.pagination-dropdown {
+    appearance: none;
+}
+
+.disabled,
+input:disabled,
+select:disabled,
+button:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.header-progress {
+    height: 0.2em;
+    width: 0%;
+    opacity: 0.8;
+}
+
+.shadow {
+    grid-area: shadow;
+    background-color: #000;
+    cursor:pointer;
+    opacity: 0.8;
+}
+/*
+.menu-left {
+    grid-area: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+.menu-right {
+    grid-area: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+*/
+.sidebar-menu {
+    grid-area: menu;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.sidebar-wrapper {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0px;
+    z-index: 30;
+}
+.sidebar-right {
+    grid-template-columns: auto minmax(20%, max-content);
+    grid-template-areas: "shadow menu";
+}
+.sidebar-left {
+    grid-template-columns: minmax(20%, max-content) auto;
+    grid-template-areas: "menu shadow";
+}
+
+.sidebar-right-wrapper {
+    display: grid;
+    grid-template-columns: auto minmax(20%, max-content);
+    grid-template-areas: "shadow menu";
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0px;
+    z-index: 30;
+}
+
+
+
+/*
+.action-button-starter {
+    position: sticky;
+    bottom: var(--action-button-margin-bottom);
+    margin-right: var(--action-button-margin-right);
+    z-index: 10;
+}
+
+.action-menu {
+    grid-area: menu;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+    gap: 1em;
+}
+.action-button {
+    grid-area: action;
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}
+.action-wrapper {
+    display: grid;
+    grid-template-rows: 1fr 64px;
+    grid-template-columns: minmax(max-content, 1fr);
+    grid-template-areas:
+      "none menu"
+      "none action";
+    z-index: 25;
+    row-gap: 1em;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    bottom: var(--action-button-margin-bottom);
+    right: var(--action-button-margin-right);
+    padding: 0px;
+}
+
+
+.action-button-primary {
+    width: 4em;
+    height: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.action-button-secondary {
+    width: 3em;
+    height: 3em;
+    margin-right: 0.5em;
+}
+
+.action-label {
+    padding: 0.4em;
+}
+*/
+
+#sidebar-right-toggle:checked ~ .sidebar-right,
+#sidebar-toggle:checked ~ .sidebar-left {
+    display: grid;
+}
+#sidebar-toggle ~ .sidebar-left,
+#sidebar-right-toggle ~ .sidebar-right {
+    display: none;
+}
+
+
+/*
+.checkbox-round {
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkbox-round:checked {
+    background-color: gray;
+}
+.checkbox-round:checked:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+*/
+
+
+/* Collapsing Menu items in sidebar */
+summary {
+    list-style: none
+}
+details summary .fa-caret-down,
+details[open] summary .fa-caret-up {
+    display: inline-block;
+}
+details[open] summary .fa-caret-down,
+details summary .fa-caret-up {
+    display: none;
+}
+
+
+.display-right {
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translate(0%, -50%);
+    /*-ms-transform: translate(0%, -50%)*/
+}
+
+
+
+/* entry */
+
+#entry img {
+    max-width: 100%;
+    height: auto;
+}
+
+#entry blockquote {
+    border-left: 0.5em solid var(--color-primary-bg);
+    color: var(--color-background-fg);
+    background-color: #f1f1f1;
+    opacity: 0.6;
+    padding: 0.01em 1em;
+    margin-top: 1em;
+    margin-bottom: 1em
+}
