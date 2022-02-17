@@ -10,6 +10,7 @@ Features:
 
 - entry: always fetch the scraped content of the entry, if possible
 - entry: use bleach to clean the html of the feed entry
+- feed: add total count to pagination
 - theme: move theme into separate directory and the possibility to change the theme
 - api: change post-fields for settings and entry modification in template and backend
 

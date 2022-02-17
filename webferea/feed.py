@@ -1,5 +1,6 @@
 import functools
 import datetime
+import math
 
 from flask import Blueprint
 from flask import flash
@@ -77,6 +78,7 @@ def pagination(page, per_page, total_count):
         "has_prev": bool(page > 1),
         "has_next": bool(page < (total_count / per_page)),
         "curr_link": f"/page/{page}/",
+        "total": math.ceil(total_count / per_page),
 
         "prev_link": f"/page/{page - 1}/" if page > 2 else "/",
         "next_link": f"/page/{page + 1}/"
