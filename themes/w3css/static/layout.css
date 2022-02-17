@@ -20,17 +20,16 @@
     --color-secondary-fg: #fff;
 
 }
-@media (prefers-color-scheme: dark-) {
-    :root {
-        --color-background-bg: #121212;
-        --color-background-fg: #fff;
-        --color-surface-bg: #373737;
-        --color-surface-fg: #fff;
-        --color-primary-bg: #373737;
-        --color-primary-fg: #fff;
-        --color-secondary-bg: #0b78dd;
-        --color-secondary-fg: #fff;
-    }
+
+body.dark-mode {
+    --color-background-bg: #121212;
+    --color-background-fg: #fff;
+    --color-surface-bg: #373737;
+    --color-surface-fg: #fff;
+    --color-primary-bg: #373737;
+    --color-primary-fg: #fff;
+    --color-secondary-bg: #0b78dd;
+    --color-secondary-fg: #fff;
 }
 
 
@@ -53,8 +52,12 @@
 }
 
 
-
-
+main {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 header, .header {
     position: sticky;
@@ -164,6 +167,9 @@ details summary .fa-caret-up {
     transform: translate(0%, -50%);
 }
 
+.w3-button {
+    font-size: 1.5rem;
+}
 
 
 /* entry */

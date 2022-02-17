@@ -24,39 +24,28 @@
 <div class="sidebar-wrapper sidebar-left">
     <nav class="w3-bar-block w3-card sidebar-menu theme-primary">
 
-        <details open>
-            <summary class="w3-bar-item w3-button">Settings <i class="fa fa-caret-down"></i><i
-                    class="fa fa-caret-up"></i></summary>
+        <span class="w3-bar-item w3-opacity">Settings</span>
 
+        <form method="post">
+            <input type="hidden" name="action" value="settings"/>
             {% if not session.show_read %}
-                <form method="post">
-                    <input type="hidden" name="action" value="settings"/>
-                    <input type="hidden" name="show_read" value="1"/>
-                    <button class="w3-bar-item w3-button" type="submit">Show Read</button>
-                </form>
+            <input type="hidden" name="show_read" value="1"/>
+            <button class="w3-bar-item w3-button" type="submit">Show Read</button>
             {% else %}
-                <form method="post">
-                    <input type="hidden" name="action" value="settings"/>
-                    <input type="hidden" name="hide_read" value="1"/>
-                    <button class="w3-bar-item w3-button" type="submit">Hide Read</button>
-                </form>
+            <input type="hidden" name="hide_read" value="1"/>
+            <button class="w3-bar-item w3-button" type="submit">Hide Read</button>
             {% endif %}
+        </form>
 
-
-            <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="localStorage.clear();">Clear Local Storage</a>
-            {#
-            <a class="w3-bar-item w3-button disabled" href="#">Change Font</a>
-            <a class="w3-bar-item w3-button disabled" href="#">Toggle Theme</a>
-            #}
-        </details>
+        <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="toggleFont();">Toggle Font</a>
+        <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="toggleColorScheme();">Toggle Theme</a>
+        <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="localStorage.clear();">Clear Local Storage</a>
 
         <hr>
-
         <a class="w3-bar-item w3-button" href="{{ url_for('auth.logout') }}">Logout</a>
-
         <hr>
 
-        <label for="sidebar-toggle" class="w3-bar-item w3-button w3-center theme-secondary w3-large">
+        <label for="sidebar-toggle" class="w3-bar-item w3-button w3-center theme-secondary">
             <i class="fa fa-remove"></i>
         </label>
 
@@ -98,7 +87,7 @@
 
         <hr>
 
-        <label for="sidebar-right-toggle" class="w3-bar-item w3-button w3-center w3-large theme-secondary">
+        <label for="sidebar-right-toggle" class="w3-bar-item w3-button w3-center theme-secondary">
             <i class="fa fa-remove"></i>
         </label>
 
@@ -145,7 +134,7 @@
     </div>
 
     {% block bottom_menu %}
-    <nav class="bottom-menu w3-large theme-primary">
+    <nav class="bottom-menu theme-primary">
 
         <label for="sidebar-toggle" class="w3-bar-item w3-button">
             <span class="">

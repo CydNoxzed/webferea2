@@ -110,12 +110,74 @@ function resetAllScrollProgress() {
     LocalStorage.clear();
 }
 
+/*
+ * Color Scheme
+ */
+
+function initColorScheme() {
+    let cs = localStorage.getItem("color-scheme");
+    if (cs === null) {
+        let prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+        if (prefersDarkScheme.matches)
+            cs = document.body.classList.contains("light-mode") ? "light" : "dark";
+        else
+            cs = document.body.classList.contains("dark-mode") ? "dark" : "light";
+    }
+    setColorScheme(cs)
+}
+
+function toggleColorScheme() {
+    let currentTheme = localStorage.getItem("color-scheme");
+    let newTheme = (currentTheme == "dark") ? 'light' : 'dark';
+    setColorScheme(newTheme);
+}
+
+function setColorScheme(scheme) {
+    if (scheme == "dark") {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("color-scheme", 'dark');
+    } else {
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem("color-scheme", 'light');
+    }
+}
+
+/*
+ * Font
+ */
+
+function initFont() {
+    let f = localStorage.getItem("font");
+    if (f === null) {
+        f = 'sans-serif';
+    }
+    setFont(f)
+}
+
+function toggleFont() {
+    let currentFont = localStorage.getItem("font");
+    let newFont = (currentFont == "sans-serif") ? 'serif' : 'sans-serif';
+    setFont(newFont);
+}
+
+function setFont(scheme) {
+    if (scheme == "serif") {
+        document.body.classList.add("w3-serif");
+        localStorage.setItem("font", 'serif');
+    } else {
+        document.body.classList.remove("w3-serif");
+        localStorage.setItem("font", 'sans-serif');
+    }
+}
 
 /*
  * Initialize
  */
 
 document.addEventListener("DOMContentLoaded", function(event) {
+    initColorScheme();
+    initFont();
+
     // try init entry page
     let el = document.getElementById('entry');
     if (el) {
