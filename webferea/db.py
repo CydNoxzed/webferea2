@@ -59,7 +59,7 @@ def dict_factory(cursor, row):
     return d
 
 
-def get_items_by_node_titles(node_titles):
+def get_items_by_node_titles(node_titles, decorate=True):
     """ Returns all items which are linked to the given node_title
 
     :param node_titles:
@@ -98,10 +98,12 @@ def get_items_by_node_titles(node_titles):
 
     cur = db.execute(query)
     entries = cur.fetchall()
+    if decorate:
+        return decorate_all_with_metadata(entries)
     return entries
 
 
-def get_item_by_id(item_id):
+def get_item_by_id(item_id, decorate=True):
     """ Get the single item from the database with the given id.
     :param item_id:
     :return:
@@ -121,8 +123,23 @@ def get_item_by_id(item_id):
         ''', params)
     entries = cur.fetchall()
     if len(entries) > 0:
+        if decorate:
+            return decorate_all_with_metadata(entries)[0]
         return entries[0]
     return []
+
+
+def decorate_all_with_metadata(entries):
+    # use the long version of the entry from the metadata, instead the short version
+    for entry in entries:
+        metadata = get_metadata_by_item_id(entry['item_id'])
+        rich_content = metadata.get("richContent")
+        if rich_content:
+            entry['description'] = rich_content
+
+        if entry['description'] is None:
+            entry['description'] = ''
+    return entries
 
 
 def get_metadata_by_item_id(item_id: int):
