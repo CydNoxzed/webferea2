@@ -11,6 +11,10 @@ Features:
 - theme: move theme into separate directory and the possibility to change the theme
 - api: change post-fields for settings and entry modification in template and backend
 
+Fixes: 
+
+- auth: fix redirect and dont redirect to "/None"
+
 ## [2.3.0] - 2022-01-15
 
 Features:

@@ -56,6 +56,6 @@ def logout():
 
 
 def redirect_dest(redirect_to=''):
-    if redirect_to in ("", 'None'):
+    if redirect_to in ("", 'None', None):
         redirect_to = url_for('feed.show_feed')
     return redirect(redirect_to)
