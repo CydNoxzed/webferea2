@@ -203,7 +203,12 @@ def get_statistics(node_titles):
     db = get_db()
     counts = []
     node_snipplet = "', '".join(node_titles)
-    for i in ["OR (webferea <> '')", ""]:
+    modes = [
+        "AND ( (items.read = 1 OR items.marked = 1) AND (webferea <> '') )",  # read
+        "AND (items.read = 0 AND items.marked = 0)",  # unread
+        "AND (items.read = 0 AND items.marked = 0) OR (webferea <> '') "  # total, which would be processed by webferea
+    ]
+    for i in modes:
         query = f"""
             SELECT count(node.title) AS count
             FROM items 
@@ -219,10 +224,7 @@ def get_statistics(node_titles):
                         OR parent_node.title IN ('{node_snipplet}')
                 )
                 AND items.comment = 0 
-                AND (
-                    (items.read = 0 AND items.marked = 0) 
-                    {i} 
-                )
+                {i} 
             ORDER BY items.date DESC
         """
         cur = db.execute(query)

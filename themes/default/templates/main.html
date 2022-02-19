@@ -14,8 +14,8 @@
     </main>
 
     <footer>
-        {% if infobar %}
-        <div class="infobar">{{ infobar }}</div>
+        {% if statistics %}
+        <div class="infobar">{{ statistics.read }} / {{ statistics.total }} unread items | last sync: {{ statistics.last_sync }}</div>
         {% endif %}
 
         <nav>

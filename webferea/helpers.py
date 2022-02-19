@@ -242,6 +242,17 @@ def get_last_sync():
         return "0000-00-00"
 
 
+def get_full_statistics(node_filter: list):
+    read, unread, total = db.get_statistics(node_filter)
+
+    return {
+        'total': total,
+        'read': read,
+        'unread': unread,
+        'last_sync': get_last_sync()
+    }
+
+
 def get_base_url(url):
     split_url_dict = dict(urlsplit(url)._asdict())
     split_url_dict['path'] = '/'

@@ -27,6 +27,10 @@ def show_item(item_id):
     :return:
     """
 
+    # statistics
+    node_filter = current_app.config['NODES']
+    statistics = helpers.get_full_statistics(node_filter)
+
     entry = db.get_item_by_id(item_id)
     if len(entry) == 0:
         flash("No Item found")
@@ -42,4 +46,4 @@ def show_item(item_id):
         entry['description'] = helpers.format_internal_links(entry['description'], link_prefix)
         entry['description'] = helpers.filter_external_scripts(entry['description'], link_prefix)
 
-    return render_template('entry.html', entry=entry)
+    return render_template('entry.html', entry=entry, statistics=statistics)

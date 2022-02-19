@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 Features:
 
+- main: change infobar to statistic dict
 - entry: always fetch the scraped content of the entry, if possible
 - entry: use bleach to clean the html of the feed entry
 - feed: add total count to pagination
