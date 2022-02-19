@@ -106,8 +106,10 @@ function updateScrollProgressHeader(progress)
     }
 }
 
-function resetAllScrollProgress() {
-    LocalStorage.clear();
+function clearLocalStorage() {
+    if (confirm("Are you sure?") == true) {
+      localStorage.clear();
+    }
 }
 
 /*

@@ -9,7 +9,10 @@
                 <p>
                     <a href="/item/{{ entry.item_id }}/"><b>{{ entry.title }}</b></a>
                 <div class="w3-small">
+
+                    {% if entry.read != 1 %}
                     <span class="w3-tag theme-primary w3-hide pause-tag" data-id="{{ entry.item_id }}"><i class="fa fa-pause" aria-hidden="true" title="Paused"></i></span>
+                    {% endif %}
 
                     {% if entry.read == 1 %}
                         <span class="w3-tag"><i class="fa fa-check" aria-hidden="true" title="Read"></i></span>

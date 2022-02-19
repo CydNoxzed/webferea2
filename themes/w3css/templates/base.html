@@ -24,6 +24,15 @@
 <div class="sidebar-wrapper sidebar-left">
     <nav class="w3-bar-block w3-card sidebar-menu theme-primary">
 
+        {% if statistics %}
+        <span class="w3-bar-item w3-opacity">Statistics</span>
+        <span class="w3-bar-item w3-small">Total: {{statistics.total}}</span>
+        <span class="w3-bar-item w3-small">Read: {{statistics.read}}</span>
+        <span class="w3-bar-item w3-small">Unread: {{statistics.unread}}</span>
+        <span class="w3-bar-item w3-small">Last Sync: {{statistics.last_sync}}</span>
+        <hr>
+        {% endif %}
+
         <span class="w3-bar-item w3-opacity">Settings</span>
 
         <form method="post">
@@ -39,7 +48,7 @@
 
         <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="toggleFont();">Toggle Font</a>
         <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="toggleColorScheme();">Toggle Theme</a>
-        <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="localStorage.clear();">Clear Local Storage</a>
+        <a class="w3-bar-item w3-button" href="javascript:void(0)" onclick="clearLocalStorage();">Clear Local Storage</a>
 
         <hr>
         <a class="w3-bar-item w3-button" href="{{ url_for('auth.logout') }}">Logout</a>
@@ -110,20 +119,20 @@
 
         <aside>
             {% for message in get_flashed_messages(category_filter=["error"]) %}
-            <div class="w3-panel w3-card-4 theme-secondary">
-                <p><i class="fa fa-exclamation" aria-hidden="true"></i> {{ message|safe }}</p>
+            <div class="w3-panel w3-card-4 theme-surface">
+                <p><span class="w3-tag theme-primary"><i class="fa fa-exclamation" aria-hidden="true"></i></span> {{ message|safe }}</p>
             </div>
             {% endfor %}
 
             {% for message in get_flashed_messages(category_filter=["success"]) %}
-            <div class="w3-panel w3-card-4 theme-secondary">
-                <p><i class="fa fa-info" aria-hidden="true"></i> {{ message|safe }}</p>
+            <div class="w3-panel w3-card-4 theme-surface">
+                <p><span class="w3-tag theme-primary"><i class="fa fa-info" aria-hidden="true"></i></span> {{ message|safe }}</p>
             </div>
             {% endfor %}
 
             {% for message in get_flashed_messages(category_filter=["message"]) %}
-            <div class="w3-panel w3-card-4 theme-secondary">
-                <p><i class="fa fa-info" aria-hidden="true"></i> {{ message|safe }}</p>
+            <div class="w3-panel w3-card-4 theme-surface">
+                <p><span class="w3-tag theme-primary"><i class="fa fa-info" aria-hidden="true"></i></span> {{ message|safe }}</p>
             </div>
             {% endfor %}
         </aside>

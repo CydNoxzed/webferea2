@@ -1,35 +1,28 @@
 :root {
-    --read: #3333ff;
-    --marked: #ff3333;
-    --read_marked: #7c26cb;
-    --progress: #ffad33;
-
-
-
-    --color-black: #000;
-    --color-white: #fff;
+    --color-black: #444;
+    --color-white: #ccc;
 
     --color-background-bg: #fff;
-    --color-background-fg: #000;
+    --color-background-fg: #222;
     --color-surface-bg: #fff;
-    --color-surface-fg: #000;
+    --color-surface-fg: #222;
 
     --color-primary-bg: #0b78dd;
     --color-primary-fg: #fff;
     --color-secondary-bg: #074b90;
     --color-secondary-fg: #fff;
-
 }
 
 body.dark-mode {
     --color-background-bg: #121212;
-    --color-background-fg: #fff;
+    --color-background-fg: #eee;
     --color-surface-bg: #373737;
-    --color-surface-fg: #fff;
-    --color-primary-bg: #373737;
-    --color-primary-fg: #fff;
+    --color-surface-fg: #eee;
+
+    --color-primary-bg: #074b90;
+    --color-primary-fg: #eee;
     --color-secondary-bg: #0b78dd;
-    --color-secondary-fg: #fff;
+    --color-secondary-fg: #eee;
 }
 
 
@@ -182,7 +175,7 @@ details summary .fa-caret-up {
 #entry blockquote {
     border-left: 0.5em solid var(--color-primary-bg);
     color: var(--color-background-fg);
-    background-color: #f1f1f1;
+    background-color: var(--color-background-bg);
     opacity: 0.6;
     padding: 0.01em 1em;
     margin-top: 1em;
