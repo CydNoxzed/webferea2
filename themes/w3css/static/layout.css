@@ -164,6 +164,26 @@ details summary .fa-caret-up {
     font-size: 1.5rem;
 }
 
+/* feed */
+
+.feed-item {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-content: stretch;
+    align-items: center;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.feed-item > *:first-child {
+    flex-grow: 1;
+}
+.feed-item > a {
+    text-decoration: none;
+}
+
 
 /* entry */
 
@@ -176,8 +196,19 @@ details summary .fa-caret-up {
     border-left: 0.5em solid var(--color-primary-bg);
     color: var(--color-background-fg);
     background-color: var(--color-background-bg);
-    opacity: 0.6;
     padding: 0.01em 1em;
     margin-top: 1em;
     margin-bottom: 1em
+}
+
+#entry a {
+    opacity: 0.8;
+}
+
+#entry .content a:after {
+    content: '\f08e';
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
 }

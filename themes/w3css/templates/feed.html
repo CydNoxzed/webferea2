@@ -4,32 +4,32 @@
 
     {% for entry in entries %}
         {% if not entry.text %}
+            <div class="w3-card w3-container w3-display-container feed-item w3-margin-bottom theme-surface">
+                <a href="/item/{{ entry.item_id }}/">
+                    <div><b>{{ entry.title }}</b></div>
+                    <div class="w3-small">
 
-            <div class="w3-card w3-container w3-display-container item-grid w3-margin-bottom theme-surface">
-                <p>
-                    <a href="/item/{{ entry.item_id }}/"><b>{{ entry.title }}</b></a>
-                <div class="w3-small">
+                        {% if entry.read != 1 %}
+                        <span class="w3-tag theme-primary w3-hide pause-tag" data-id="{{ entry.item_id }}"><i
+                                class="fa fa-pause" aria-hidden="true" title="Paused"></i></span>
+                        {% endif %}
 
-                    {% if entry.read != 1 %}
-                    <span class="w3-tag theme-primary w3-hide pause-tag" data-id="{{ entry.item_id }}"><i class="fa fa-pause" aria-hidden="true" title="Paused"></i></span>
-                    {% endif %}
-
-                    {% if entry.read == 1 %}
+                        {% if entry.read == 1 %}
                         <span class="w3-tag"><i class="fa fa-check" aria-hidden="true" title="Read"></i></span>
-                    {% endif %}
-                    {% if entry.marked == 1 %}
+                        {% endif %}
+                        {% if entry.marked == 1 %}
                         <span class="w3-tag"><i class="fa fa-flag" aria-hidden="true" title="Marked"></i></span>
-                    {% endif %}
-                    {% if ((entry.description|wordcount / wpm )|round(0,"ceil"))|int > 1 %}
+                        {% endif %}
+                        {% if ((entry.description|wordcount / wpm )|round(0,"ceil"))|int > 1 %}
                         <span class="w3-tag">{{ ((entry.description|wordcount / wpm )|round(0,"ceil"))|int }} Minutes</span>
-                    {% endif %}
-                    <span class="">{{ entry.node_title }}</span>
-                </div>
-                </p>
+                        {% endif %}
+                        <span class="">{{ entry.node_title }}</span>
+                    </div>
+                </a>
 
-                <span class="w3-button- w3-container display-right">
+                <label class="w3-button- w3-container">
                     <input name="ids" value="{{ entry.item_id }}" class="w3-check item-checkbox" type="checkbox">
-                </span>
+                </label>
             </div>
 
         {% else %}

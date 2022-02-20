@@ -200,4 +200,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
         });
         break;
     }
+
+      let links = document.querySelectorAll('#entry .content a');
+      for (let i = 0; i < links.length; i++){
+        links[i].setAttribute('target', '_blank');
+      }
+
 });
