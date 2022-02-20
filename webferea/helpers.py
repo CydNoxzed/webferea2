@@ -195,14 +195,21 @@ class StyleTagFilter(bleach.html5lib_shim.Filter):
 
 
 def filter_bleach(content: str) -> str:
-    tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'strong', 'ul',
-            'h1', 'h2', 'h3', 'h4', 'h5', 'p', 'figure', 'audio', 'video', 'img', 'picture', 'source',
-            'table', 'thead', 'tbody', 'tr', 'td', 'style', 'div']
+    tags = [
+        'a', 'abbr', 'acronym', 'blockquote', 'code', 'pre', 'b', 'em', 'strong', 'i', 'li', 'ol', 'ul',
+        'h1', 'h2', 'h3', 'h4', 'h5', 'p',
+        'figure', 'figcaption', 'audio', 'video', 'img', 'picture', 'source',
+        'table', 'thead', 'tbody', 'tr', 'td',
+        'style', 'div',
+        # 'span', # on large sites with a lot of span elements, the performance could drop
+        'input'
+    ]
     attributes = {
         **bleach.ALLOWED_ATTRIBUTES,
         "img": ["alt", "src", "srcset", "loading"],
         "audio": ["controls", "preload"],
-        "source": ["srcset", "media", "src"]
+        "source": ["srcset", "media", "src"],
+        "input": ["checked", "disabled", "type", "value"]
     }
     protocols = bleach.ALLOWED_PROTOCOLS + ['gemini']
 
