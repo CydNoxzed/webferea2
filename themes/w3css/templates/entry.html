@@ -13,7 +13,7 @@
 
     <div class="w3-container">
         <h3><b><a target="_blank" href="{{ entry.source }}">{{ entry.title }}</a></b></h3>
-        <h5>{{ entry.node_title }}, <span class="w3-opacity">{{ entry.date|datetime }}</span></h5>
+        <h5>{{ entry.node_title }}{% if entry.author %} ({{entry.author|safe}}){% endif %}, <span class="w3-opacity">{{ entry.date|datetime }}</span></h5>
     </div>
 
     <div class="w3-container content">

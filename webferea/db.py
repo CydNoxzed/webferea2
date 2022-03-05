@@ -133,12 +133,23 @@ def decorate_all_with_metadata(entries):
     # use the long version of the entry from the metadata, instead the short version
     for entry in entries:
         metadata = get_metadata_by_item_id(entry['item_id'])
+
         rich_content = metadata.get("richContent")
         if rich_content:
             entry['description'] = rich_content
-
         if entry['description'] is None:
             entry['description'] = ''
+
+        author = metadata.get("author")
+        if author:
+            entry['author'] = author
+        if not 'author' in entry or entry['author'] is None:
+            creator = metadata.get("creator")
+            if creator:
+                entry['author'] = creator
+        if not 'author' in entry or entry['author'] is None:
+            entry['author'] = ''
+
     return entries
 
 
