@@ -152,6 +152,10 @@ def format_internal_links(content, link_prefix="/") -> str:
         for link, url in matches:
             if url.startswith('/'):  # ignore urls that starts with "//", cause they are protocol independent
                 continue
+            if url.startswith('#'):  # ignore urls that starts with "#", because they document internal
+                continue
+            if url.startswith('data:'):  # ignore urls that starts with "data:", because the image is encoded there
+                continue
 
             # convert lazy loading data-src attribute to src
             if "img" in link and " src=" not in link:
