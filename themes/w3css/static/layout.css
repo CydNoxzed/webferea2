@@ -212,3 +212,13 @@ details summary .fa-caret-up {
     font-weight: normal;
     text-decoration: inherit;
 }
+
+#entry .content * {
+    max-width: 100%;
+    overflow-x: scroll;
+}
+
+code, kbd, pre, samp {
+    overflow-x: auto;
+}
+

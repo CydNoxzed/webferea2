@@ -43,10 +43,11 @@ The configuration should be placed as "config.json" inside the instance folder.
 - PASSWORD: Password for the login on the webfrontend
 - NODES: Names of the feeds who should be shown in webferea (that is the title of the subscription you can edit in liferea). Should be a valid json list.
 - DATABASE: Name of the database on the server (default "liferea.db")
-- THEME: Name of the layout/theme (default "default")
 - ITEMS_PER_PAGE: number of items on a page (default: 10)
 - WORDS_PER_MINUTE: Words you can read per minute. Used to calculate the aprox. reading time (default: 240)
-- SHOW_READ_ENTITIES_PER_DEFAULT: Should the already read items be seen? (Default: False)
+- SHOW_READ_ENTITIES_PER_DEFAULT: Should the already read items be seen? (default: False)
+- THEME: Name of the layout/theme (default "default")
+- THEMES_DIR: Path to the directory which contains the user defined themes (default: '')
 
 #### Docker
 

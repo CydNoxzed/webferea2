@@ -6,19 +6,36 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [2.4.0] - 2022-03-13
+
 Features:
 
 - main: change infobar to statistic dict
 - entry: always fetch the scraped content of the entry, if possible
-- entry: use bleach to clean the html of the feed entry
+- entry: use [bleach](https://github.com/mozilla/bleach) to clean the html of the feed entry
+- entry: show author in entry
 - feed: add total count to pagination
+- theme/w3css: add new theme
+
+Changes:
 - theme: move theme into separate directory and the possibility to change the theme
-- theme/w3css: initial
 - api: change post-fields for settings and entry modification in template and backend
 
 Fixes: 
 
-- auth: fix redirect and dont redirect to "/None"
+- auth: fix redirect and don't redirect to "/None"
+
+Theme w3css:
+
+- [w3css.com](https://www.w3schools.com/w3css/) as foundation
+- [fontawesome 4.7](https://fontawesome.com/v4/) for the icons 
+- size of 140kb of the static layout files (10x more than the default theme)
+- size of html per call is lower than the default theme
+- Bulk read/mark of entries in the feed
+- Toggle for light- and dark-mode
+- Toggle for serif and san-serif font
+
 
 ## [2.3.0] - 2022-01-15
 
@@ -80,7 +97,8 @@ Fixes:
 
 - Initial release
 
-[Unreleased]: https://github.com/CydNoxzed/webferea2/compare/2.3.0...HEAD
+[Unreleased]: https://github.com/CydNoxzed/webferea2/compare/2.4.0...HEAD
+[2.4.0]: https://github.com/CydNoxzed/webferea2/compare/2.3.0...2.4.0
 [2.3.0]: https://github.com/CydNoxzed/webferea2/compare/2.2.0...2.3.0
 [2.2.0]: https://github.com/CydNoxzed/webferea2/compare/2.1.0...2.2.0
 [2.1.0]: https://github.com/CydNoxzed/webferea2/compare/2.0.0...2.1.0
