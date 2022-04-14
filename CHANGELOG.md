@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+Features: 
+
+- theme/w3css: don't show pagination if there is only one page
+
+
 
 ## [2.4.0] - 2022-03-13
 

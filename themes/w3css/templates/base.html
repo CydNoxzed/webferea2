@@ -151,27 +151,36 @@
             </span>
         </label>
 
-        {% if pagination.has_prev %}
-        <a  class="w3-bar-item w3-button" href="{{pagination.prev_link}}"><i class="fa fa-arrow-left"></i></a>
-        {% else %}
-        <span  class="w3-bar-item w3-button disabled"><i class="fa fa-arrow-left"></i></span>
-        {% endif %}
+        {% if pagination.total > 1 %}
 
-        <select class="w3-bar-item w3-button pagination-dropdown">
-            {% for p in range(0, pagination.total) %}
-            {% if loop.index == pagination.page %}
-            <option value="{{loop.index}}" selected="selected">{{loop.index}}</option>
+            {% if pagination.has_prev %}
+            <a  class="w3-bar-item w3-button" href="{{pagination.prev_link}}"><i class="fa fa-arrow-left"></i></a>
             {% else %}
-            <option value="{{loop.index}}">{{loop.index}}</option>
+            <span  class="w3-bar-item w3-button disabled"><i class="fa fa-arrow-left"></i></span>
             {% endif %}
-            {% endfor %}
-        </select>
 
-        {% if pagination.has_next %}
-        <a class="w3-bar-item w3-button" href="{{pagination.next_link}}"><i class="fa fa-arrow-right"></i></a>
+            <select class="w3-bar-item w3-button pagination-dropdown">
+                {% for p in range(0, pagination.total) %}
+                {% if loop.index == pagination.page %}
+                <option value="{{loop.index}}" selected="selected">{{loop.index}}</option>
+                {% else %}
+                <option value="{{loop.index}}">{{loop.index}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+
+            {% if pagination.has_next %}
+            <a class="w3-bar-item w3-button" href="{{pagination.next_link}}"><i class="fa fa-arrow-right"></i></a>
+            {% else %}
+            <span class="w3-bar-item w3-button disabled"><i class="fa fa-arrow-right"></i></span>
+            {% endif %}
+
         {% else %}
-        <span class="w3-bar-item w3-button disabled"><i class="fa fa-arrow-right"></i></span>
+            <span></span>
+            <span></span>
+            <span></span>
         {% endif %}
+
 
         <label for="sidebar-right-toggle" class="w3-bar-item w3-button">
             <span class="">
