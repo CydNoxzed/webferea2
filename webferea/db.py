@@ -91,9 +91,8 @@ def get_items_by_node_titles(node_titles, decorate=True):
             AND items.comment = 0 
             AND (( 
                     items.read = 0 
-                    AND items.marked = 0 
                 ) {hide_read_snipplet} )
-            ORDER BY items.date DESC
+            ORDER BY items.date DESC 
         """
 
     cur = db.execute(query)
@@ -215,9 +214,9 @@ def get_statistics(node_titles):
     counts = []
     node_snipplet = "', '".join(node_titles)
     modes = [
-        "AND ( (items.read = 1 OR items.marked = 1) AND (webferea <> '') )",  # read
-        "AND (items.read = 0 AND items.marked = 0)",  # unread
-        "AND (items.read = 0 AND items.marked = 0) OR (webferea <> '') "  # total, which would be processed by webferea
+        "AND ( (items.read = 1) AND (webferea <> '') )",  # read
+        "AND (items.read = 0)",  # unread
+        "AND (items.read = 0) OR (webferea <> '') "  # total, which would be processed by webferea
     ]
     for i in modes:
         query = f"""

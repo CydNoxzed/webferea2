@@ -10,6 +10,9 @@ Features:
 
 - theme/w3css: don't show pagination if there is only one page
 
+Fixes:
+
+- db: don't count marked entries as read (feed and statistics)
 
 
 ## [2.4.0] - 2022-03-13
