@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> This repository moved to https://codeberg.org/noxzed/webferea2
+> and will no longer receive any updates on github.com
+
 # Webferea2
 
 This is a web single-user counterpart to the GTK+ news aggregator [Liferea](https://lzone.de/liferea/ "Liferea"). Webferea syncs the sqlite-database of Liferea over http on a server which runs your Webferea instance. You can read selected feeds over the webinterface and flag their items as *read* or *marked*. On the next sync, the flags are applied to your local sqlite-database of Liferea and the merged database will be uploaded to the server again.
@@ -20,7 +24,7 @@ These instructions will get you a copy of the project up and running on your loc
 Clone the files from the repository into a directory on your server and a directory on your desktop pc, who runs Liferea.
 
 ```
-git clone https://github.com/CydNoxzed/webferea2.git
+git clone https://codeberg.org/noxzed/webferea2.git
 ```
 
 Run ```pip install -r requirements.txt``` to install all dependencies.
